@@ -42,13 +42,13 @@ import com.nepxion.zxing.exception.ZxingException;
 public class ZxingEncoder {
     private static final Logger LOG = LoggerFactory.getLogger(ZxingEncoder.class);
 
-    public InputStream encodeForInputStream(String text, String format, String encoding, ErrorCorrectionLevel level, int width, int height, int margin, int foregroundColor, int backgroundColor) {
-        byte[] bytes = encodeForBytes(text, format, encoding, level, width, height, margin, foregroundColor, backgroundColor);
+    public InputStream encodeForInputStream(String text, String format, String encoding, ErrorCorrectionLevel level, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder) {
+        byte[] bytes = encodeForBytes(text, format, encoding, level, width, height, margin, foregroundColor, backgroundColor, deleteWhiteBorder);
 
         return new ByteArrayInputStream(bytes);
     }
 
-    public byte[] encodeForBytes(String text, String format, String encoding, ErrorCorrectionLevel level, int width, int height, int margin, int foregroundColor, int backgroundColor) {
+    public byte[] encodeForBytes(String text, String format, String encoding, ErrorCorrectionLevel level, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder) {
         ByteArrayOutputStream outputStream = null;
         try {
             Map<EncodeHintType, Object> hints = createHints(encoding, level, margin);
@@ -56,6 +56,10 @@ public class ZxingEncoder {
 
             MatrixToImageConfig imageConfig = new MatrixToImageConfig(foregroundColor, backgroundColor);
             BitMatrix bitMatrix = formatWriter.encode(text, BarcodeFormat.QR_CODE, width, height, hints);
+
+            if (deleteWhiteBorder) {
+                bitMatrix = deleteWhiteBorder(bitMatrix);
+            }
 
             outputStream = new ByteArrayOutputStream();
             MatrixToImageWriter.writeToStream(bitMatrix, format, outputStream, imageConfig);
@@ -74,8 +78,8 @@ public class ZxingEncoder {
         }
     }
 
-    public File encodeForFile(String text, File file, String format, String encoding, ErrorCorrectionLevel level, int width, int height, int margin, int foregroundColor, int backgroundColor) {
-        return encodeForFile(text, file, format, encoding, level, width, height, margin, foregroundColor, backgroundColor, null);
+    public File encodeForFile(String text, File file, String format, String encoding, ErrorCorrectionLevel level, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder) {
+        return encodeForFile(text, file, format, encoding, level, width, height, margin, foregroundColor, backgroundColor, deleteWhiteBorder, null);
     }
 
     /**
@@ -93,13 +97,17 @@ public class ZxingEncoder {
      * @param logoPath 二维码Logo图片
      * @return
      */
-    public File encodeForFile(String text, File file, String format, String encoding, ErrorCorrectionLevel level, int width, int height, int margin, int foregroundColor, int backgroundColor, String logoPath) {
+    public File encodeForFile(String text, File file, String format, String encoding, ErrorCorrectionLevel level, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder, String logoPath) {
         try {
             Map<EncodeHintType, Object> hints = createHints(encoding, level, margin);
             MultiFormatWriter formatWriter = new MultiFormatWriter();
 
             MatrixToImageConfig imageConfig = new MatrixToImageConfig(foregroundColor, backgroundColor);
             BitMatrix bitMatrix = formatWriter.encode(text, BarcodeFormat.QR_CODE, width, height, hints);
+
+            if (deleteWhiteBorder) {
+                bitMatrix = deleteWhiteBorder(bitMatrix);
+            }
 
             MatrixToImageWriter.writeToPath(bitMatrix, format, file.toPath(), imageConfig);
 
@@ -115,6 +123,23 @@ public class ZxingEncoder {
         }
 
         return file;
+    }
+
+    // 删除白边
+    private BitMatrix deleteWhiteBorder(BitMatrix bitMatrix) {
+        int[] rectangle = bitMatrix.getEnclosingRectangle();
+        int width = rectangle[2] + 1;
+        int height = rectangle[3] + 1;
+
+        BitMatrix matrix = new BitMatrix(width, height);
+        matrix.clear();
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                if (bitMatrix.get(i + rectangle[0], j + rectangle[1]))
+                    matrix.set(i, j);
+            }
+        }
+        return matrix;
     }
 
     private void writeLogoFile(BitMatrix bitMatrix, File file, String format, int foregroundColor, int backgroundColor, String logoPath) throws IOException {

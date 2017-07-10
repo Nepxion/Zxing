@@ -30,15 +30,18 @@ public class ZxingTest {
 
         int foregroundColor = 0xFF000000;
         int backgroundColor = 0xFFFFFFFF;
+        
+        boolean deleteWhiteBorder = false;
+        
         String logoPath = "src/main/resources/logo.jpg";
 
         ZxingEncoder encoder = new ZxingEncoder();
         ZxingDecoder decoder = new ZxingDecoder();
 
-        File resultFile = encoder.encodeForFile(text, file, format, encoding, level, width, height, margin, foregroundColor, backgroundColor, logoPath);
+        File resultFile = encoder.encodeForFile(text, file, format, encoding, level, width, height, margin, foregroundColor, backgroundColor, deleteWhiteBorder, logoPath);
         Result result = decoder.decodeByFile(resultFile, encoding);
 
-        // InputStream inputStream = encoder.encodeForInputStream(text, format, encoding, level, width, height, margin, foregroundColor, backgroundColor);
+        // InputStream inputStream = encoder.encodeForInputStream(text, format, encoding, level, width, height, margin, foregroundColor, backgroundColor, deleteWhiteBorder);
         // Result result = decoder.decodeByInputStream(inputStream, encoding);
 
         System.out.println("Text : " + result.getText());
