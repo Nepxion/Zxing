@@ -16,13 +16,16 @@ import com.google.zxing.Result;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.nepxion.zxing.core.ZxingDecoder;
 import com.nepxion.zxing.core.ZxingEncoder;
+import com.nepxion.zxing.util.ZxingUtils;
 
 public class ZxingTest {
     public static void main(String[] args) throws Exception {
+        // ========== 参数 ==========
         String text = "Hello，尼普西";
-        File file = new File("E:/Download/二维码.jpg");
+        File file = new File("D:/1/二维码.jpg");
         String format = "jpg";
         String encoding = "UTF-8";
+
         ErrorCorrectionLevel level = ErrorCorrectionLevel.H;
         int width = 300;
         int height = 300;
@@ -30,19 +33,27 @@ public class ZxingTest {
 
         int foregroundColor = 0xFF000000;
         int backgroundColor = 0xFFFFFFFF;
-        
+
         boolean deleteWhiteBorder = false;
-        
+
         String logoPath = "src/main/resources/logo.jpg";
+        // =========================
 
         ZxingEncoder encoder = new ZxingEncoder();
         ZxingDecoder decoder = new ZxingDecoder();
 
-        File resultFile = encoder.encodeForFile(text, file, format, encoding, level, width, height, margin, foregroundColor, backgroundColor, deleteWhiteBorder, logoPath);
-        Result result = decoder.decodeByFile(resultFile, encoding);
+        boolean outputFile = false;
 
-        // InputStream inputStream = encoder.encodeForInputStream(text, format, encoding, level, width, height, margin, foregroundColor, backgroundColor, deleteWhiteBorder);
-        // Result result = decoder.decodeByInputStream(inputStream, encoding);
+        Result result = null;
+        if (outputFile) {
+            File resultForFile = encoder.encodeForFile(text, file, format, encoding, level, width, height, margin, foregroundColor, backgroundColor, deleteWhiteBorder, logoPath);
+            result = decoder.decodeByFile(resultForFile, encoding);
+        } else {
+            byte[] resultForBytes = encoder.encodeForBytes(text, format, encoding, level, width, height, margin, foregroundColor, backgroundColor, deleteWhiteBorder, logoPath);
+            result = decoder.decodeByBytes(resultForBytes, encoding);
+
+            ZxingUtils.createFile(resultForBytes, file);
+        }
 
         System.out.println("Text : " + result.getText());
         System.out.println("Encoder : " + result.getBarcodeFormat());
