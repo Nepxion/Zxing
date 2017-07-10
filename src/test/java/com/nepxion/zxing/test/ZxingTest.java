@@ -13,22 +13,33 @@ package com.nepxion.zxing.test;
 import java.io.File;
 
 import com.google.zxing.Result;
-import com.nepxion.zxing.core.ZxingGenerator;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import com.nepxion.zxing.core.ZxingDecoder;
+import com.nepxion.zxing.core.ZxingEncoder;
 
 public class ZxingTest {
     public static void main(String[] args) throws Exception {
         String text = "Hello，尼普西";
         File file = new File("E:/Download/二维码.jpg");
         String format = "jpg";
-        String character = "UTF-8";
-        int width = 200;
-        int height = 200;
+        String encoding = "UTF-8";
+        ErrorCorrectionLevel level = ErrorCorrectionLevel.H;
+        int width = 300;
+        int height = 300;
+        int margin = 1;
 
-        File resultFile = ZxingGenerator.encodeForFile(text, file, format, character, width, height);
-        Result result = ZxingGenerator.decodeByFile(resultFile, character);
+        int foregroundColor = 0xFF000000;
+        int backgroundColor = 0xFFFFFFFF;
+        String logoPath = "src/main/resources/logo.jpg";
 
-        // InputStream inputStream = encodeForInputStream(text, format, character, width, height);
-        // Result result = decodeByInputStream(inputStream, character);
+        ZxingEncoder encoder = new ZxingEncoder();
+        ZxingDecoder decoder = new ZxingDecoder();
+
+        File resultFile = encoder.encodeForFile(text, file, format, encoding, level, width, height, margin, foregroundColor, backgroundColor, logoPath);
+        Result result = decoder.decodeByFile(resultFile, encoding);
+
+        // InputStream inputStream = encoder.encodeForInputStream(text, format, encoding, level, width, height, margin, foregroundColor, backgroundColor);
+        // Result result = decoder.decodeByInputStream(inputStream, encoding);
 
         System.out.println("Text : " + result.getText());
         System.out.println("Encoder : " + result.getBarcodeFormat());
