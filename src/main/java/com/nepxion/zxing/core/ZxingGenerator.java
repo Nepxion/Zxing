@@ -46,15 +46,15 @@ import com.nepxion.zxing.exception.ZxingException;
 public class ZxingGenerator {
     private static final Logger LOG = LoggerFactory.getLogger(ZxingGenerator.class);
 
-    public static InputStream encodeForInputStream(String text, String format, String character, int width, int height) {
-        byte[] bytes = encodeForBytes(text, format, character, width, height);
+    public static InputStream encodeForInputStream(String text, String format, String encoding, int width, int height) {
+        byte[] bytes = encodeForBytes(text, format, encoding, width, height);
 
         return new ByteArrayInputStream(bytes);
     }
 
-    public static byte[] encodeForBytes(String text, String format, String character, int width, int height) {
+    public static byte[] encodeForBytes(String text, String format, String encoding, int width, int height) {
         Map<EncodeHintType, Object> hints = new HashMap<EncodeHintType, Object>();
-        hints.put(EncodeHintType.CHARACTER_SET, character);
+        hints.put(EncodeHintType.CHARACTER_SET, encoding);
 
         ByteArrayOutputStream outputStream = null;
         try {
@@ -77,9 +77,9 @@ public class ZxingGenerator {
         }
     }
 
-    public static File encodeForFile(String text, File file, String format, String character, int width, int height) {
+    public static File encodeForFile(String text, File file, String format, String encoding, int width, int height) {
         Map<EncodeHintType, Object> hints = new HashMap<EncodeHintType, Object>();
-        hints.put(EncodeHintType.CHARACTER_SET, character);
+        hints.put(EncodeHintType.CHARACTER_SET, encoding);
 
         MultiFormatWriter writer = new MultiFormatWriter();
         try {
@@ -97,7 +97,7 @@ public class ZxingGenerator {
         return file;
     }
 
-    public static Result decodeByFile(File file, String character) {
+    public static Result decodeByFile(File file, String encoding) {
         BufferedImage image = null;
         try {
             image = ImageIO.read(file);
@@ -107,14 +107,14 @@ public class ZxingGenerator {
         }
 
         try {
-            return decode(image, character);
+            return decode(image, encoding);
         } catch (NotFoundException e) {
             LOG.error("Decode file=[{}] error", file.getPath(), e);
             throw new ZxingException("Decode file=[" + file.getPath() + "] error");
         }
     }
 
-    public static Result decodeByInputStream(InputStream inputStream, String character) {
+    public static Result decodeByInputStream(InputStream inputStream, String encoding) {
         BufferedImage image = null;
         try {
             image = ImageIO.read(inputStream);
@@ -124,14 +124,14 @@ public class ZxingGenerator {
         }
 
         try {
-            return decode(image, character);
+            return decode(image, encoding);
         } catch (NotFoundException e) {
             LOG.error("Decode stream error", e);
             throw new ZxingException("Decode stream error");
         }
     }
 
-    public static Result decodeByURL(URL url, String character) {
+    public static Result decodeByURL(URL url, String encoding) {
         BufferedImage image = null;
         try {
             image = ImageIO.read(url);
@@ -141,26 +141,26 @@ public class ZxingGenerator {
         }
 
         try {
-            return decode(image, character);
+            return decode(image, encoding);
         } catch (NotFoundException e) {
             LOG.error("Decode url error", e);
             throw new ZxingException("Decode url error");
         }
     }
 
-    public static Result decodeByBytes(byte[] bytes, String character) {
+    public static Result decodeByBytes(byte[] bytes, String encoding) {
         ByteArrayInputStream inputStream = new ByteArrayInputStream(bytes);
 
-        return decodeByInputStream(inputStream, character);
+        return decodeByInputStream(inputStream, encoding);
     }
 
-    private static Result decode(BufferedImage image, String character) throws NotFoundException {
+    private static Result decode(BufferedImage image, String encoding) throws NotFoundException {
         LuminanceSource source = new BufferedImageLuminanceSource(image);
         Binarizer binarizer = new HybridBinarizer(source);
         BinaryBitmap binaryBitmap = new BinaryBitmap(binarizer);
 
         Map<DecodeHintType, Object> hints = new HashMap<DecodeHintType, Object>();
-        hints.put(DecodeHintType.CHARACTER_SET, character);
+        hints.put(DecodeHintType.CHARACTER_SET, encoding);
 
         MultiFormatReader reader = new MultiFormatReader();
 
