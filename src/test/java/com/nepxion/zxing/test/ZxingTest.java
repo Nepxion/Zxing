@@ -21,7 +21,7 @@ import com.nepxion.zxing.util.ZxingUtils;
 
 public class ZxingTest {
     public static void main(String[] args) throws Exception {
-        String text = "Hello，尼普西";
+        String text = "https://github.com/Nepxion/";
         File file = new File("D:/二维码.jpg");
         String format = ZxingConstants.DEFAULT_FORMAT;
         String encoding = ZxingConstants.DEFAULT_ENCODING;
