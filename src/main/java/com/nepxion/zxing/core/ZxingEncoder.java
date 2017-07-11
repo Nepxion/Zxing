@@ -40,19 +40,34 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.nepxion.zxing.exception.ZxingException;
 import com.nepxion.zxing.util.ZxingUtils;
 
+/**
+ * 相关参数说明
+ * text              二维码内容。可以是文字，也可以是URL
+ * file              二维码图片的文件，File对象
+ * format            二维码图片格式，例如jpg，png
+ * encoding          二维码内容编码，例如UTF-8
+ * correctionLevel   二维码容错等级，例如ErrorCorrectionLevel.H(30%纠正率)，ErrorCorrectionLevel.Q(25%纠正率)，ErrorCorrectionLevel.M(15%纠正率)，ErrorCorrectionLevel.L(7%纠正率)。纠正率越高，扫描速度越慢
+ * width             二维码图片宽度
+ * height            二维码图片高度
+ * margin            二维码图片白边大小，取值范围0~4
+ * foregroundColor   二维码图片前景色。格式如0xFF000000
+ * backgroundColor   二维码图片背景色。格式如0xFFFFFFFF
+ * deleteWhiteBorder 二维码图片白边去除。当图片面积较小时候，可以利用该方法扩大二维码的显示面积
+ * logoPath          二维码Logo图片。显示在二维码中间的Logo图片
+ */
 public class ZxingEncoder {
     private static final Logger LOG = LoggerFactory.getLogger(ZxingEncoder.class);
 
-    public InputStream encodeForInputStream(String text, String format, String encoding, ErrorCorrectionLevel level, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder, String logoPath) {
-        byte[] bytes = encodeForBytes(text, format, encoding, level, width, height, margin, foregroundColor, backgroundColor, deleteWhiteBorder, logoPath);
+    public InputStream encodeForInputStream(String text, String format, String encoding, ErrorCorrectionLevel correctionLevel, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder, String logoPath) {
+        byte[] bytes = encodeForBytes(text, format, encoding, correctionLevel, width, height, margin, foregroundColor, backgroundColor, deleteWhiteBorder, logoPath);
 
         return new ByteArrayInputStream(bytes);
     }
 
-    public byte[] encodeForBytes(String text, String format, String encoding, ErrorCorrectionLevel level, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder, String logoPath) {
+    public byte[] encodeForBytes(String text, String format, String encoding, ErrorCorrectionLevel correctionLevel, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder, String logoPath) {
         ByteArrayOutputStream outputStream = null;
         try {
-            Map<EncodeHintType, Object> hints = createHints(encoding, level, margin);
+            Map<EncodeHintType, Object> hints = createHints(encoding, correctionLevel, margin);
             MultiFormatWriter formatWriter = new MultiFormatWriter();
 
             MatrixToImageConfig imageConfig = new MatrixToImageConfig(foregroundColor, backgroundColor);
@@ -91,28 +106,13 @@ public class ZxingEncoder {
         }
     }
 
-    public File encodeForFile(String text, File file, String format, String encoding, ErrorCorrectionLevel level, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder) {
-        return encodeForFile(text, file, format, encoding, level, width, height, margin, foregroundColor, backgroundColor, deleteWhiteBorder, null);
+    public File encodeForFile(String text, File file, String format, String encoding, ErrorCorrectionLevel correctionLevel, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder) {
+        return encodeForFile(text, file, format, encoding, correctionLevel, width, height, margin, foregroundColor, backgroundColor, deleteWhiteBorder, null);
     }
 
-    /**
-     * 产生二维码图片的文件
-     * @param text 二维码内容
-     * @param file 二维码图片路径和名称
-     * @param format 二维码图片格式
-     * @param encoding 二维码内容编码
-     * @param level 二维码容错率
-     * @param width 二维码图片宽度
-     * @param height 二维码图片高度
-     * @param margin 二维码图片白边大小，取值范围0~4
-     * @param foregroundColor 二维码图片前景色
-     * @param backgroundColor 二维码图片背景色
-     * @param logoPath 二维码Logo图片
-     * @return
-     */
-    public File encodeForFile(String text, File file, String format, String encoding, ErrorCorrectionLevel level, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder, String logoPath) {
+    public File encodeForFile(String text, File file, String format, String encoding, ErrorCorrectionLevel correctionLevel, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder, String logoPath) {
         try {
-            Map<EncodeHintType, Object> hints = createHints(encoding, level, margin);
+            Map<EncodeHintType, Object> hints = createHints(encoding, correctionLevel, margin);
             MultiFormatWriter formatWriter = new MultiFormatWriter();
 
             MatrixToImageConfig imageConfig = new MatrixToImageConfig(foregroundColor, backgroundColor);
@@ -203,10 +203,10 @@ public class ZxingEncoder {
         return image;
     }
 
-    private Map<EncodeHintType, Object> createHints(String encoding, ErrorCorrectionLevel level, int margin) {
+    private Map<EncodeHintType, Object> createHints(String encoding, ErrorCorrectionLevel correctionLevel, int margin) {
         Map<EncodeHintType, Object> hints = new HashMap<EncodeHintType, Object>();
         hints.put(EncodeHintType.CHARACTER_SET, encoding); // 设置编码
-        hints.put(EncodeHintType.ERROR_CORRECTION, level); // 指定纠错等级    
+        hints.put(EncodeHintType.ERROR_CORRECTION, correctionLevel); // 指定纠错等级    
         hints.put(EncodeHintType.MARGIN, margin); //设置白边
 
         return hints;
