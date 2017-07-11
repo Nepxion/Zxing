@@ -22,5 +22,4 @@ public class ZxingConstants {
     public static final int DEFAULT_FOREGROUND_COLOR = 0xFF000000;
     public static final int DEFAULT_BACKGROUND_COLOR = 0xFFFFFFFF;
     public static final boolean DEFAULT_DELETE_WHITE_BORDER = false;
-    public static final int DEFAULT_LOGO_SHRINK_RATIO = 5;
 }

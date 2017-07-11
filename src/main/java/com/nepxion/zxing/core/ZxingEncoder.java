@@ -54,18 +54,17 @@ import com.nepxion.zxing.util.ZxingUtils;
  * backgroundColor   二维码图片背景色。格式如0xFFFFFFFF
  * deleteWhiteBorder 二维码图片白边去除。当图片面积较小时候，可以利用该方法扩大二维码的显示面积
  * logoPath          二维码Logo图片。显示在二维码中间的Logo图片，其在二维码中的尺寸最大为100x100左右，否则会覆盖二维码导致最后不能被识别
- * logoShrinkRatio   二维码Logo图片的缩小倍数，默认是5
  */
 public class ZxingEncoder {
     private static final Logger LOG = LoggerFactory.getLogger(ZxingEncoder.class);
 
-    public InputStream encodeForInputStream(String text, String format, String encoding, ErrorCorrectionLevel correctionLevel, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder, String logoPath, int logoShrinkRatio) {
-        byte[] bytes = encodeForBytes(text, format, encoding, correctionLevel, width, height, margin, foregroundColor, backgroundColor, deleteWhiteBorder, logoPath, logoShrinkRatio);
+    public InputStream encodeForInputStream(String text, String format, String encoding, ErrorCorrectionLevel correctionLevel, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder, String logoPath) {
+        byte[] bytes = encodeForBytes(text, format, encoding, correctionLevel, width, height, margin, foregroundColor, backgroundColor, deleteWhiteBorder, logoPath);
 
         return new ByteArrayInputStream(bytes);
     }
 
-    public byte[] encodeForBytes(String text, String format, String encoding, ErrorCorrectionLevel correctionLevel, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder, String logoPath, int logoShrinkRatio) {
+    public byte[] encodeForBytes(String text, String format, String encoding, ErrorCorrectionLevel correctionLevel, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder, String logoPath) {
         ByteArrayOutputStream outputStream = null;
         try {
             Map<EncodeHintType, Object> hints = createHints(encoding, correctionLevel, margin);
@@ -83,7 +82,7 @@ public class ZxingEncoder {
 
             // 先输出Logo
             if (StringUtils.isNotEmpty(logoPath)) {
-                BufferedImage image = toLogoImage(bitMatrix, foregroundColor, backgroundColor, logoPath, logoShrinkRatio);
+                BufferedImage image = toLogoImage(bitMatrix, foregroundColor, backgroundColor, logoPath);
 
                 if (!ImageIO.write(image, format, outputStream)) {
                     throw new ZxingException("Failed to write logo image");
@@ -107,11 +106,11 @@ public class ZxingEncoder {
         }
     }
 
-    public File encodeForFile(String text, File file, String format, String encoding, ErrorCorrectionLevel correctionLevel, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder, int logoShrinkRatio) {
-        return encodeForFile(text, file, format, encoding, correctionLevel, width, height, margin, foregroundColor, backgroundColor, deleteWhiteBorder, null, logoShrinkRatio);
+    public File encodeForFile(String text, File file, String format, String encoding, ErrorCorrectionLevel correctionLevel, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder) {
+        return encodeForFile(text, file, format, encoding, correctionLevel, width, height, margin, foregroundColor, backgroundColor, deleteWhiteBorder, null);
     }
 
-    public File encodeForFile(String text, File file, String format, String encoding, ErrorCorrectionLevel correctionLevel, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder, String logoPath, int logoShrinkRatio) {
+    public File encodeForFile(String text, File file, String format, String encoding, ErrorCorrectionLevel correctionLevel, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder, String logoPath) {
         try {
             Map<EncodeHintType, Object> hints = createHints(encoding, correctionLevel, margin);
             MultiFormatWriter formatWriter = new MultiFormatWriter();
@@ -131,7 +130,7 @@ public class ZxingEncoder {
 
             // 再输出Logo
             if (StringUtils.isNotEmpty(logoPath)) {
-                BufferedImage image = toLogoImage(bitMatrix, foregroundColor, backgroundColor, logoPath, logoShrinkRatio);
+                BufferedImage image = toLogoImage(bitMatrix, foregroundColor, backgroundColor, logoPath);
 
                 if (!ImageIO.write(image, format, file)) {
                     throw new ZxingException("Failed to write logo image");
@@ -164,14 +163,14 @@ public class ZxingEncoder {
         return matrix;
     }
 
-    private BufferedImage toLogoImage(BitMatrix bitMatrix, int foregroundColor, int backgroundColor, String logoPath, int logoShrinkRatio) throws IOException {
+    private BufferedImage toLogoImage(BitMatrix bitMatrix, int foregroundColor, int backgroundColor, String logoPath) throws IOException {
         BufferedImage image = toBufferedImage(bitMatrix, foregroundColor, backgroundColor);
         Graphics2D g2d = image.createGraphics();
 
-        int ratioWidth = image.getWidth() / logoShrinkRatio;
-        int ratioHeight = image.getHeight() / logoShrinkRatio;
+        int ratioWidth = image.getWidth() * 2 / 10;
+        int ratioHeight = image.getHeight() * 2 / 10;
 
-        if (ratioWidth > 100) {
+		if (ratioWidth > 100) {
             LOG.warn("Ratio width=[{}] for logo image is more than 100", ratioWidth);
         }
 
