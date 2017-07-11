@@ -33,6 +33,7 @@ public class ZxingTest {
         int backgroundColor = ZxingConstants.DEFAULT_BACKGROUND_COLOR;
         boolean deleteWhiteBorder = ZxingConstants.DEFAULT_DELETE_WHITE_BORDER;
         String logoPath = "src/main/resources/logo.jpg";
+        int logoShrinkRatio = ZxingConstants.DEFAULT_LOGO_SHRINK_RATIO;
 
         ZxingEncoder encoder = new ZxingEncoder();
         ZxingDecoder decoder = new ZxingDecoder();
@@ -41,11 +42,11 @@ public class ZxingTest {
         Result result = null;
         if (outputFile) {
             // 以文件格式读取并导出
-            File resultForFile = encoder.encodeForFile(text, file, format, encoding, level, width, height, margin, foregroundColor, backgroundColor, deleteWhiteBorder, logoPath);
+            File resultForFile = encoder.encodeForFile(text, file, format, encoding, level, width, height, margin, foregroundColor, backgroundColor, deleteWhiteBorder, logoPath, logoShrinkRatio);
             result = decoder.decodeByFile(resultForFile, encoding);
         } else {
             // 以字节数组格式读取并导出
-            byte[] resultForBytes = encoder.encodeForBytes(text, format, encoding, level, width, height, margin, foregroundColor, backgroundColor, deleteWhiteBorder, logoPath);
+            byte[] resultForBytes = encoder.encodeForBytes(text, format, encoding, level, width, height, margin, foregroundColor, backgroundColor, deleteWhiteBorder, logoPath, logoShrinkRatio);
             result = decoder.decodeByBytes(resultForBytes, encoding);
 
             ZxingUtils.createFile(resultForBytes, file);
