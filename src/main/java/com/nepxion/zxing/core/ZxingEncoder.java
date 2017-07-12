@@ -37,6 +37,7 @@ import com.google.zxing.client.j2se.MatrixToImageConfig;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import com.nepxion.zxing.entity.ZxingEntity;
 import com.nepxion.zxing.exception.ZxingException;
 import com.nepxion.zxing.util.ZxingUtils;
 
@@ -58,10 +59,18 @@ import com.nepxion.zxing.util.ZxingUtils;
 public class ZxingEncoder {
     private static final Logger LOG = LoggerFactory.getLogger(ZxingEncoder.class);
 
+    public InputStream encodeForInputStream(ZxingEntity zxingEntity) {
+        return encodeForInputStream(zxingEntity.getText(), zxingEntity.getFormat(), zxingEntity.getEncoding(), zxingEntity.getCorrectionLevel(), zxingEntity.getWidth(), zxingEntity.getHeight(), zxingEntity.getMargin(), zxingEntity.getForegroundColor(), zxingEntity.getBackgroundColor(), zxingEntity.isDeleteWhiteBorder(), zxingEntity.getLogoPath());
+    }
+
     public InputStream encodeForInputStream(String text, String format, String encoding, ErrorCorrectionLevel correctionLevel, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder, String logoPath) {
         byte[] bytes = encodeForBytes(text, format, encoding, correctionLevel, width, height, margin, foregroundColor, backgroundColor, deleteWhiteBorder, logoPath);
 
         return new ByteArrayInputStream(bytes);
+    }
+
+    public byte[] encodeForBytes(ZxingEntity zxingEntity) {
+        return encodeForBytes(zxingEntity.getText(), zxingEntity.getFormat(), zxingEntity.getEncoding(), zxingEntity.getCorrectionLevel(), zxingEntity.getWidth(), zxingEntity.getHeight(), zxingEntity.getMargin(), zxingEntity.getForegroundColor(), zxingEntity.getBackgroundColor(), zxingEntity.isDeleteWhiteBorder(), zxingEntity.getLogoPath());
     }
 
     public byte[] encodeForBytes(String text, String format, String encoding, ErrorCorrectionLevel correctionLevel, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder, String logoPath) {
@@ -104,6 +113,10 @@ public class ZxingEncoder {
                 IOUtils.closeQuietly(outputStream);
             }
         }
+    }
+
+    public File encodeForFile(ZxingEntity zxingEntity) {
+        return encodeForFile(zxingEntity.getText(), zxingEntity.getFile(), zxingEntity.getFormat(), zxingEntity.getEncoding(), zxingEntity.getCorrectionLevel(), zxingEntity.getWidth(), zxingEntity.getHeight(), zxingEntity.getMargin(), zxingEntity.getForegroundColor(), zxingEntity.getBackgroundColor(), zxingEntity.isDeleteWhiteBorder(), zxingEntity.getLogoPath());
     }
 
     public File encodeForFile(String text, File file, String format, String encoding, ErrorCorrectionLevel correctionLevel, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder) {
@@ -170,7 +183,7 @@ public class ZxingEncoder {
         int ratioWidth = image.getWidth() * 2 / 10;
         int ratioHeight = image.getHeight() * 2 / 10;
 
-		if (ratioWidth > 100) {
+        if (ratioWidth > 100) {
             LOG.warn("Ratio width=[{}] for logo image is more than 100", ratioWidth);
         }
 
