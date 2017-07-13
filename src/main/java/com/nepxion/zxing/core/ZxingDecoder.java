@@ -38,20 +38,20 @@ import com.nepxion.zxing.exception.ZxingException;
 public class ZxingDecoder {
     private static final Logger LOG = LoggerFactory.getLogger(ZxingDecoder.class);
 
-    public Result decodeByFile(File file, String encoding) {
+    public Result decodeByFile(File inputFile, String encoding) {
         BufferedImage image = null;
         try {
-            image = ImageIO.read(file);
+            image = ImageIO.read(inputFile);
         } catch (IOException e) {
-            LOG.error("Decode file=[{}] error", file.getPath(), e);
-            throw new ZxingException("Decode file=[" + file.getPath() + "] error");
+            LOG.error("Decode file=[{}] error", inputFile.getPath(), e);
+            throw new ZxingException("Decode file=[" + inputFile.getPath() + "] error", e);
         }
 
         try {
             return decode(image, encoding);
         } catch (NotFoundException e) {
-            LOG.error("Decode file=[{}] error", file.getPath(), e);
-            throw new ZxingException("Decode file=[" + file.getPath() + "] error");
+            LOG.error("Decode file=[{}] error", inputFile.getPath(), e);
+            throw new ZxingException("Decode file=[" + inputFile.getPath() + "] error", e);
         }
     }
 
@@ -61,14 +61,14 @@ public class ZxingDecoder {
             image = ImageIO.read(inputStream);
         } catch (IOException e) {
             LOG.error("Decode stream error", e);
-            throw new ZxingException("Decode stream error");
+            throw new ZxingException("Decode stream error", e);
         }
 
         try {
             return decode(image, encoding);
         } catch (NotFoundException e) {
             LOG.error("Decode stream error", e);
-            throw new ZxingException("Decode stream error");
+            throw new ZxingException("Decode stream error", e);
         }
     }
 
@@ -78,14 +78,14 @@ public class ZxingDecoder {
             image = ImageIO.read(url);
         } catch (IOException e) {
             LOG.error("Decode url error", e);
-            throw new ZxingException("Decode url error");
+            throw new ZxingException("Decode url error", e);
         }
 
         try {
             return decode(image, encoding);
         } catch (NotFoundException e) {
             LOG.error("Decode url error", e);
-            throw new ZxingException("Decode url error");
+            throw new ZxingException("Decode url error", e);
         }
     }
 

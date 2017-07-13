@@ -149,11 +149,11 @@ public class ZxingEncoder {
                 }
             }
         } catch (WriterException e) {
-            LOG.error("Encode file error", e);
-            throw new ZxingException("Encode file error", e);
+            LOG.error("Encode file=[{}] error", outputFile.getPath(), e);
+            throw new ZxingException("Encode file=[" + outputFile.getPath() + "] error", e);
         } catch (IOException e) {
-            LOG.error("Encode file error", e);
-            throw new ZxingException("Encode file error", e);
+            LOG.error("Encode file=[{}] error", outputFile.getPath(), e);
+            throw new ZxingException("Encode file=[" + outputFile.getPath() + "] error", e);
         }
 
         return outputFile;
