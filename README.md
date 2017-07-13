@@ -69,10 +69,7 @@ public class ZxingTest {
         ZxingDecoder decoder = new ZxingDecoder();
         Result result = decoder.decodeByFile(file, entity.getEncoding());
 
-        System.out.println("Text : " + result.getText());
-        System.out.println("Timestamp : " + result.getTimestamp());
-        System.out.println("BarcodeFormat : " + result.getBarcodeFormat());
-        System.out.println("NumBits : " + result.getNumBits());
+        System.out.println("[Text] : " + result.getText() + " [Timestamp] : " + result.getTimestamp() + " [BarcodeFormat] : " + result.getBarcodeFormat() + " [NumBits] : " + result.getNumBits());
     }
 
     public static void executeForBytes() throws IOException {
@@ -96,10 +93,7 @@ public class ZxingTest {
         ZxingDecoder decoder = new ZxingDecoder();
         Result result = decoder.decodeByBytes(bytes, entity.getEncoding());
 
-        System.out.println("Text : " + result.getText());
-        System.out.println("Timestamp : " + result.getTimestamp());
-        System.out.println("BarcodeFormat : " + result.getBarcodeFormat());
-        System.out.println("NumBits : " + result.getNumBits());
+        System.out.println("[Text] : " + result.getText() + " [Timestamp] : " + result.getTimestamp() + " [BarcodeFormat] : " + result.getBarcodeFormat() + " [NumBits] : " + result.getNumBits());
     }
 }
 ```
