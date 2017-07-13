@@ -25,7 +25,6 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,7 +43,6 @@ import com.nepxion.zxing.util.ZxingUtils;
 /**
  * 相关参数说明
  * text              二维码内容。可以是文字，也可以是URL
- * file              二维码图片的文件，File对象
  * format            二维码图片格式，例如jpg，png
  * encoding          二维码内容编码，例如UTF-8
  * correctionLevel   二维码容错等级，例如ErrorCorrectionLevel.H(30%纠正率)，ErrorCorrectionLevel.Q(25%纠正率)，ErrorCorrectionLevel.M(15%纠正率)，ErrorCorrectionLevel.L(7%纠正率)。纠正率越高，扫描速度越慢
@@ -54,26 +52,27 @@ import com.nepxion.zxing.util.ZxingUtils;
  * foregroundColor   二维码图片前景色。格式如0xFF000000
  * backgroundColor   二维码图片背景色。格式如0xFFFFFFFF
  * deleteWhiteBorder 二维码图片白边去除。当图片面积较小时候，可以利用该方法扩大二维码的显示面积
- * logoPath          二维码Logo图片。显示在二维码中间的Logo图片，其在二维码中的尺寸最大为100x100左右，否则会覆盖二维码导致最后不能被识别
+ * logoFile          二维码Logo图片的文件，File对象。显示在二维码中间的Logo图片，其在二维码中的尺寸最大为100x100左右，否则会覆盖二维码导致最后不能被识别
+ * outputFile        二维码图片的导出文件，File对象
  */
 public class ZxingEncoder {
     private static final Logger LOG = LoggerFactory.getLogger(ZxingEncoder.class);
 
     public InputStream encodeForInputStream(ZxingEntity zxingEntity) {
-        return encodeForInputStream(zxingEntity.getText(), zxingEntity.getFormat(), zxingEntity.getEncoding(), zxingEntity.getCorrectionLevel(), zxingEntity.getWidth(), zxingEntity.getHeight(), zxingEntity.getMargin(), zxingEntity.getForegroundColor(), zxingEntity.getBackgroundColor(), zxingEntity.isDeleteWhiteBorder(), zxingEntity.getLogoPath());
+        return encodeForInputStream(zxingEntity.getText(), zxingEntity.getFormat(), zxingEntity.getEncoding(), zxingEntity.getCorrectionLevel(), zxingEntity.getWidth(), zxingEntity.getHeight(), zxingEntity.getMargin(), zxingEntity.getForegroundColor(), zxingEntity.getBackgroundColor(), zxingEntity.isDeleteWhiteBorder(), zxingEntity.getLogoFile());
     }
 
-    public InputStream encodeForInputStream(String text, String format, String encoding, ErrorCorrectionLevel correctionLevel, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder, String logoPath) {
-        byte[] bytes = encodeForBytes(text, format, encoding, correctionLevel, width, height, margin, foregroundColor, backgroundColor, deleteWhiteBorder, logoPath);
+    public InputStream encodeForInputStream(String text, String format, String encoding, ErrorCorrectionLevel correctionLevel, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder, File logoFile) {
+        byte[] bytes = encodeForBytes(text, format, encoding, correctionLevel, width, height, margin, foregroundColor, backgroundColor, deleteWhiteBorder, logoFile);
 
         return new ByteArrayInputStream(bytes);
     }
 
     public byte[] encodeForBytes(ZxingEntity zxingEntity) {
-        return encodeForBytes(zxingEntity.getText(), zxingEntity.getFormat(), zxingEntity.getEncoding(), zxingEntity.getCorrectionLevel(), zxingEntity.getWidth(), zxingEntity.getHeight(), zxingEntity.getMargin(), zxingEntity.getForegroundColor(), zxingEntity.getBackgroundColor(), zxingEntity.isDeleteWhiteBorder(), zxingEntity.getLogoPath());
+        return encodeForBytes(zxingEntity.getText(), zxingEntity.getFormat(), zxingEntity.getEncoding(), zxingEntity.getCorrectionLevel(), zxingEntity.getWidth(), zxingEntity.getHeight(), zxingEntity.getMargin(), zxingEntity.getForegroundColor(), zxingEntity.getBackgroundColor(), zxingEntity.isDeleteWhiteBorder(), zxingEntity.getLogoFile());
     }
 
-    public byte[] encodeForBytes(String text, String format, String encoding, ErrorCorrectionLevel correctionLevel, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder, String logoPath) {
+    public byte[] encodeForBytes(String text, String format, String encoding, ErrorCorrectionLevel correctionLevel, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder, File logoFile) {
         ByteArrayOutputStream outputStream = null;
         try {
             Map<EncodeHintType, Object> hints = createHints(encoding, correctionLevel, margin);
@@ -90,8 +89,8 @@ public class ZxingEncoder {
             outputStream = new ByteArrayOutputStream();
 
             // 先输出Logo
-            if (StringUtils.isNotEmpty(logoPath)) {
-                BufferedImage image = toLogoImage(bitMatrix, foregroundColor, backgroundColor, logoPath);
+            if (logoFile != null) {
+                BufferedImage image = toLogoImage(bitMatrix, foregroundColor, backgroundColor, logoFile);
 
                 if (!ImageIO.write(image, format, outputStream)) {
                     throw new ZxingException("Failed to write logo image");
@@ -104,10 +103,10 @@ public class ZxingEncoder {
             return outputStream.toByteArray();
         } catch (WriterException e) {
             LOG.error("Encode stream error", e);
-            throw new ZxingException("Encode stream error");
+            throw new ZxingException("Encode stream error", e);
         } catch (IOException e) {
             LOG.error("Encode stream error", e);
-            throw new ZxingException("Encode stream error");
+            throw new ZxingException("Encode stream error", e);
         } finally {
             if (outputStream != null) {
                 IOUtils.closeQuietly(outputStream);
@@ -116,14 +115,14 @@ public class ZxingEncoder {
     }
 
     public File encodeForFile(ZxingEntity zxingEntity) {
-        return encodeForFile(zxingEntity.getText(), zxingEntity.getFile(), zxingEntity.getFormat(), zxingEntity.getEncoding(), zxingEntity.getCorrectionLevel(), zxingEntity.getWidth(), zxingEntity.getHeight(), zxingEntity.getMargin(), zxingEntity.getForegroundColor(), zxingEntity.getBackgroundColor(), zxingEntity.isDeleteWhiteBorder(), zxingEntity.getLogoPath());
+        return encodeForFile(zxingEntity.getText(), zxingEntity.getFormat(), zxingEntity.getEncoding(), zxingEntity.getCorrectionLevel(), zxingEntity.getWidth(), zxingEntity.getHeight(), zxingEntity.getMargin(), zxingEntity.getForegroundColor(), zxingEntity.getBackgroundColor(), zxingEntity.isDeleteWhiteBorder(), zxingEntity.getLogoFile(), zxingEntity.getOutputFile());
     }
 
-    public File encodeForFile(String text, File file, String format, String encoding, ErrorCorrectionLevel correctionLevel, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder) {
-        return encodeForFile(text, file, format, encoding, correctionLevel, width, height, margin, foregroundColor, backgroundColor, deleteWhiteBorder, null);
+    public File encodeForFile(String text, String format, String encoding, ErrorCorrectionLevel correctionLevel, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder, File outputFile) {
+        return encodeForFile(text, format, encoding, correctionLevel, width, height, margin, foregroundColor, backgroundColor, deleteWhiteBorder, null, outputFile);
     }
 
-    public File encodeForFile(String text, File file, String format, String encoding, ErrorCorrectionLevel correctionLevel, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder, String logoPath) {
+    public File encodeForFile(String text, String format, String encoding, ErrorCorrectionLevel correctionLevel, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder, File logoFile, File outputFile) {
         try {
             Map<EncodeHintType, Object> hints = createHints(encoding, correctionLevel, margin);
             MultiFormatWriter formatWriter = new MultiFormatWriter();
@@ -136,28 +135,28 @@ public class ZxingEncoder {
                 bitMatrix = deleteWhiteBorder(bitMatrix);
             }
 
-            ZxingUtils.createDirectory(file);
+            ZxingUtils.createDirectory(outputFile);
 
             // 先输出二维码
-            MatrixToImageWriter.writeToPath(bitMatrix, format, file.toPath(), imageConfig);
+            MatrixToImageWriter.writeToPath(bitMatrix, format, outputFile.toPath(), imageConfig);
 
             // 再输出Logo
-            if (StringUtils.isNotEmpty(logoPath)) {
-                BufferedImage image = toLogoImage(bitMatrix, foregroundColor, backgroundColor, logoPath);
+            if (logoFile != null) {
+                BufferedImage image = toLogoImage(bitMatrix, foregroundColor, backgroundColor, logoFile);
 
-                if (!ImageIO.write(image, format, file)) {
+                if (!ImageIO.write(image, format, outputFile)) {
                     throw new ZxingException("Failed to write logo image");
                 }
             }
         } catch (WriterException e) {
-            LOG.error("Encode file=[{}] error", file.getPath(), e);
-            throw new ZxingException("Encode file=[" + file.getPath() + "] error");
+            LOG.error("Encode file error", e);
+            throw new ZxingException("Encode file error", e);
         } catch (IOException e) {
-            LOG.error("Encode file=[{}] error", file.getPath(), e);
-            throw new ZxingException("Encode file=[" + file.getPath() + "] error");
+            LOG.error("Encode file error", e);
+            throw new ZxingException("Encode file error", e);
         }
 
-        return file;
+        return outputFile;
     }
 
     private BitMatrix deleteWhiteBorder(BitMatrix bitMatrix) {
@@ -176,7 +175,7 @@ public class ZxingEncoder {
         return matrix;
     }
 
-    private BufferedImage toLogoImage(BitMatrix bitMatrix, int foregroundColor, int backgroundColor, String logoPath) throws IOException {
+    private BufferedImage toLogoImage(BitMatrix bitMatrix, int foregroundColor, int backgroundColor, File logoFile) throws IOException {
         BufferedImage image = toBufferedImage(bitMatrix, foregroundColor, backgroundColor);
         Graphics2D g2d = image.createGraphics();
 
@@ -192,7 +191,6 @@ public class ZxingEncoder {
         }
 
         // 载入Logo
-        File logoFile = new File(logoPath);
         Image logoImage = ImageIO.read(logoFile);
         int logoWidth = logoImage.getWidth(null) > ratioWidth ? ratioWidth : logoImage.getWidth(null);
         int logoHeight = logoImage.getHeight(null) > ratioHeight ? ratioHeight : logoImage.getHeight(null);

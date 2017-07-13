@@ -25,7 +25,6 @@ public class ZxingEntity implements Serializable {
     private static final long serialVersionUID = 4989668966674254634L;
 
     private String text;
-    private File file;
     private String format = ZxingConstants.DEFAULT_FORMAT;
     private String encoding = ZxingConstants.DEFAULT_ENCODING;
     private ErrorCorrectionLevel correctionLevel = ZxingConstants.DEFAULT_CORRECTION_LEVEL;
@@ -35,7 +34,8 @@ public class ZxingEntity implements Serializable {
     private int foregroundColor = ZxingConstants.DEFAULT_FOREGROUND_COLOR;
     private int backgroundColor = ZxingConstants.DEFAULT_BACKGROUND_COLOR;
     private boolean deleteWhiteBorder = ZxingConstants.DEFAULT_DELETE_WHITE_BORDER;
-    private String logoPath = ZxingConstants.DEFAULT_LOGO_PATH;
+    private File logoFile = new File(ZxingConstants.DEFAULT_LOGO_PATH);
+    private File outputFile;
 
     public String getText() {
         return text;
@@ -43,14 +43,6 @@ public class ZxingEntity implements Serializable {
 
     public void setText(String text) {
         this.text = text;
-    }
-
-    public File getFile() {
-        return file;
-    }
-
-    public void setFile(File file) {
-        this.file = file;
     }
 
     public String getFormat() {
@@ -125,12 +117,20 @@ public class ZxingEntity implements Serializable {
         this.deleteWhiteBorder = deleteWhiteBorder;
     }
 
-    public String getLogoPath() {
-        return logoPath;
+    public File getLogoFile() {
+        return logoFile;
     }
 
-    public void setLogoPath(String logoPath) {
-        this.logoPath = logoPath;
+    public void setLogoFile(File logoFile) {
+        this.logoFile = logoFile;
+    }
+    
+    public File getOutputFile() {
+        return outputFile;
+    }
+
+    public void setOutputFile(File outputFile) {
+        this.outputFile = outputFile;
     }
 
     @Override
