@@ -90,7 +90,7 @@ public class ZxingEncoder {
 
             // 先输出Logo
             if (logoFile != null) {
-                BufferedImage logoImage = toLogoImage(bitMatrix, foregroundColor, backgroundColor, logoFile);
+                BufferedImage logoImage = createLogoImage(bitMatrix, foregroundColor, backgroundColor, logoFile);
 
                 if (!ImageIO.write(logoImage, format, outputStream)) {
                     throw new ZxingException("Failed to write logo image");
@@ -142,7 +142,7 @@ public class ZxingEncoder {
 
             // 再输出Logo
             if (logoFile != null) {
-                BufferedImage logoImage = toLogoImage(bitMatrix, foregroundColor, backgroundColor, logoFile);
+                BufferedImage logoImage = createLogoImage(bitMatrix, foregroundColor, backgroundColor, logoFile);
 
                 if (!ImageIO.write(logoImage, format, outputFile)) {
                     throw new ZxingException("Failed to write logo image");
@@ -175,8 +175,8 @@ public class ZxingEncoder {
         return matrix;
     }
 
-    private BufferedImage toLogoImage(BitMatrix bitMatrix, int foregroundColor, int backgroundColor, File logoFile) throws IOException {
-        BufferedImage image = toBufferedImage(bitMatrix, foregroundColor, backgroundColor);
+    private BufferedImage createLogoImage(BitMatrix bitMatrix, int foregroundColor, int backgroundColor, File logoFile) throws IOException {
+        BufferedImage image = createBufferedImage(bitMatrix, foregroundColor, backgroundColor);
         Graphics2D g2d = image.createGraphics();
 
         int ratioWidth = image.getWidth() * 2 / 10;
@@ -208,7 +208,7 @@ public class ZxingEncoder {
         return image;
     }
 
-    private BufferedImage toBufferedImage(BitMatrix bitMatrix, int foregroundColor, int backgroundColor) {
+    private BufferedImage createBufferedImage(BitMatrix bitMatrix, int foregroundColor, int backgroundColor) {
         int width = bitMatrix.getWidth();
         int height = bitMatrix.getHeight();
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
