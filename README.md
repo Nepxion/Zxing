@@ -12,18 +12,17 @@
         File file = new File("D:/二维码.jpg");
 
         // 二维码参数的构造对象，很多参数赋予了默认值，可自行通过set方法更改
-        ZxingEntity zxingEntity = new ZxingEntity();
-        zxingEntity.setText(text);
-        zxingEntity.setFile(file);
-
-        ZxingEncoder encoder = new ZxingEncoder();
-        ZxingDecoder decoder = new ZxingDecoder();
+        ZxingEntity entity = new ZxingEntity();
+        entity.setText(text);
+        entity.setFile(file);
 
         // 以文件格式读取并导出，该方式适合本地调用
-        File resultForFile = encoder.encodeForFile(zxingEntity);
+        ZxingEncoder encoder = new ZxingEncoder();
+        encoder.encodeForFile(entity);
 
         // 以文件格式扫描并解析
-        Result result = decoder.decodeByFile(resultForFile, zxingEntity.getEncoding());
+        ZxingDecoder decoder = new ZxingDecoder();
+        Result result = decoder.decodeByFile(file, entity.getEncoding());
 
         System.out.println("Text : " + result.getText());
         System.out.println("Timestamp : " + result.getTimestamp());
@@ -40,20 +39,19 @@
         File file = new File("D:/二维码.jpg");
 
         // 二维码参数的构造对象，很多参数赋予了默认值，可自行通过set方法更改
-        ZxingEntity zxingEntity = new ZxingEntity();
-        zxingEntity.setText(text);
-        zxingEntity.setFile(file);
-
-        ZxingEncoder encoder = new ZxingEncoder();
-        ZxingDecoder decoder = new ZxingDecoder();
+        ZxingEntity entity = new ZxingEntity();
+        entity.setText(text);
+        entity.setFile(file);
 
         // 以字节数组格式读取并导出，该方式适合服务端传输给客户端调用
-        byte[] resultForBytes = encoder.encodeForBytes(zxingEntity);
+        ZxingEncoder encoder = new ZxingEncoder();
+        byte[] bytes = encoder.encodeForBytes(entity);
 
-        ZxingUtils.createFile(resultForBytes, file);
+        ZxingUtils.createFile(bytes, file);
 
         // 以字节数组格式扫描并解析
-        Result result = decoder.decodeByBytes(resultForBytes, zxingEntity.getEncoding());
+        ZxingDecoder decoder = new ZxingDecoder();
+        Result result = decoder.decodeByBytes(bytes, entity.getEncoding());
 
         System.out.println("Text : " + result.getText());
         System.out.println("Timestamp : " + result.getTimestamp());
