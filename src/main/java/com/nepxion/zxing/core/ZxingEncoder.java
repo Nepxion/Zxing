@@ -90,9 +90,9 @@ public class ZxingEncoder {
 
             // 先输出Logo
             if (logoFile != null) {
-                BufferedImage image = toLogoImage(bitMatrix, foregroundColor, backgroundColor, logoFile);
+                BufferedImage logoImage = toLogoImage(bitMatrix, foregroundColor, backgroundColor, logoFile);
 
-                if (!ImageIO.write(image, format, outputStream)) {
+                if (!ImageIO.write(logoImage, format, outputStream)) {
                     throw new ZxingException("Failed to write logo image");
                 }
             }
@@ -142,9 +142,9 @@ public class ZxingEncoder {
 
             // 再输出Logo
             if (logoFile != null) {
-                BufferedImage image = toLogoImage(bitMatrix, foregroundColor, backgroundColor, logoFile);
+                BufferedImage logoImage = toLogoImage(bitMatrix, foregroundColor, backgroundColor, logoFile);
 
-                if (!ImageIO.write(image, format, outputFile)) {
+                if (!ImageIO.write(logoImage, format, outputFile)) {
                     throw new ZxingException("Failed to write logo image");
                 }
             }
