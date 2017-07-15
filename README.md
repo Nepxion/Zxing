@@ -76,7 +76,7 @@ public class ZxingTest {
         ZxingDecoder decoder = new ZxingDecoder();
         Result result = decoder.decodeByFile(file, entity.getEncoding());
 
-        System.out.println("[Text] : " + result.getText() + " [Timestamp] : " + result.getTimestamp() + " [BarcodeFormat] : " + result.getBarcodeFormat() + " [NumBits] : " + result.getNumBits());
+        System.out.println("扫描结果 - [Text] : " + result.getText() + " [Timestamp] : " + result.getTimestamp() + " [BarcodeFormat] : " + result.getBarcodeFormat() + " [NumBits] : " + result.getNumBits());
     }
 
     public static void executeForQRBytes() throws IOException {
@@ -103,7 +103,7 @@ public class ZxingTest {
         ZxingDecoder decoder = new ZxingDecoder();
         Result result = decoder.decodeByBytes(bytes, entity.getEncoding());
 
-        System.out.println("[Text] : " + result.getText() + " [Timestamp] : " + result.getTimestamp() + " [BarcodeFormat] : " + result.getBarcodeFormat() + " [NumBits] : " + result.getNumBits());
+        System.out.println("扫描结果 - [Text] : " + result.getText() + " [Timestamp] : " + result.getTimestamp() + " [BarcodeFormat] : " + result.getBarcodeFormat() + " [NumBits] : " + result.getNumBits());
     }
 
     public static void executeForEANFile() {
@@ -128,7 +128,7 @@ public class ZxingTest {
         ZxingDecoder decoder = new ZxingDecoder();
         Result result = decoder.decodeByFile(file, entity.getEncoding());
 
-        System.out.println("[Text] : " + result.getText() + " [Timestamp] : " + result.getTimestamp() + " [BarcodeFormat] : " + result.getBarcodeFormat() + " [NumBits] : " + result.getNumBits());
+        System.out.println("扫描结果 - [Text] : " + result.getText() + " [Timestamp] : " + result.getTimestamp() + " [BarcodeFormat] : " + result.getBarcodeFormat() + " [NumBits] : " + result.getNumBits());
     }
 
     public static void executeForEANBytes() throws IOException {
@@ -155,7 +155,7 @@ public class ZxingTest {
         ZxingDecoder decoder = new ZxingDecoder();
         Result result = decoder.decodeByBytes(bytes, entity.getEncoding());
 
-        System.out.println("[Text] : " + result.getText() + " [Timestamp] : " + result.getTimestamp() + " [BarcodeFormat] : " + result.getBarcodeFormat() + " [NumBits] : " + result.getNumBits());
+        System.out.println("扫描结果 - [Text] : " + result.getText() + " [Timestamp] : " + result.getTimestamp() + " [BarcodeFormat] : " + result.getBarcodeFormat() + " [NumBits] : " + result.getNumBits());
     }
 }
 ```
