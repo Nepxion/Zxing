@@ -51,7 +51,7 @@ import com.nepxion.zxing.util.ZxingUtils;
  * margin            二维码/条形码图片白边大小，取值范围0~4
  * foregroundColor   二维码/条形码图片前景色。格式如0xFF000000
  * backgroundColor   二维码/条形码图片背景色。格式如0xFFFFFFFF
- * deleteWhiteBorder 二维码/条形码图片白边去除。当图片面积较小时候，可以利用该方法扩大二维码/条形码的显示面积
+ * deleteWhiteBorder 二维码图片白边去除。当图片面积较小时候，可以利用该方法扩大二维码/条形码的显示面积
  * logoFile          二维码Logo图片的文件，File对象。显示在二维码中间的Logo图片，其在二维码中的尺寸最大为100x100左右，否则会覆盖二维码导致最后不能被识别
  * outputFile        二维码/条形码图片的导出文件，File对象
  */
@@ -77,6 +77,14 @@ public class ZxingEncoder {
             throw new ZxingException("Barcode format is null");
         }
 
+        if (width <= 0) {
+            throw new ZxingException("Invalid width=" + width);
+        }
+
+        if (height <= 0) {
+            throw new ZxingException("Invalid height=" + height);
+        }
+
         ByteArrayOutputStream outputStream = null;
         try {
             Map<EncodeHintType, Object> hints = createHints(encoding, correctionLevel, margin);
@@ -85,8 +93,8 @@ public class ZxingEncoder {
             MatrixToImageConfig imageConfig = new MatrixToImageConfig(foregroundColor, backgroundColor);
             BitMatrix bitMatrix = formatWriter.encode(text, barcodeFormat, width, height, hints);
 
-            // 删除二维码/条形码四周的白边
-            if (deleteWhiteBorder) {
+            // 删除二维码四周的白边
+            if (barcodeFormat == BarcodeFormat.QR_CODE && deleteWhiteBorder) {
                 bitMatrix = deleteWhiteBorder(bitMatrix);
             }
 
@@ -131,6 +139,14 @@ public class ZxingEncoder {
             throw new ZxingException("Barcode format is null");
         }
 
+        if (width <= 0) {
+            throw new ZxingException("Invalid width=" + width);
+        }
+
+        if (height <= 0) {
+            throw new ZxingException("Invalid height=" + height);
+        }
+
         try {
             Map<EncodeHintType, Object> hints = createHints(encoding, correctionLevel, margin);
             MultiFormatWriter formatWriter = new MultiFormatWriter();
@@ -138,8 +154,8 @@ public class ZxingEncoder {
             MatrixToImageConfig imageConfig = new MatrixToImageConfig(foregroundColor, backgroundColor);
             BitMatrix bitMatrix = formatWriter.encode(text, barcodeFormat, width, height, hints);
 
-            // 删除二维码/条形码四周的白边
-            if (deleteWhiteBorder) {
+            // 删除二维码四周的白边
+            if (barcodeFormat == BarcodeFormat.QR_CODE && deleteWhiteBorder) {
                 bitMatrix = deleteWhiteBorder(bitMatrix);
             }
 

@@ -30,8 +30,8 @@ public class ZxingEntity implements Serializable {
     private String format = ZxingConstants.DEFAULT_FORMAT;
     private String encoding = ZxingConstants.DEFAULT_ENCODING;
     private ErrorCorrectionLevel correctionLevel = ZxingConstants.DEFAULT_CORRECTION_LEVEL;
-    private int width = ZxingConstants.DEFAULT_WIDTH;
-    private int height = ZxingConstants.DEFAULT_HEIGHT;
+    private int width;
+    private int height;
     private int margin = ZxingConstants.DEFAULT_MARGIN;
     private int foregroundColor = ZxingConstants.DEFAULT_FOREGROUND_COLOR;
     private int backgroundColor = ZxingConstants.DEFAULT_BACKGROUND_COLOR;

@@ -16,8 +16,6 @@ public class ZxingConstants {
     public static final String DEFAULT_FORMAT = "jpg";
     public static final String DEFAULT_ENCODING = "UTF-8";
     public static final ErrorCorrectionLevel DEFAULT_CORRECTION_LEVEL = ErrorCorrectionLevel.H;
-    public static final int DEFAULT_WIDTH = 300;
-    public static final int DEFAULT_HEIGHT = 300;
     public static final int DEFAULT_MARGIN = 1;
     public static final int DEFAULT_FOREGROUND_COLOR = 0xFF000000;
     public static final int DEFAULT_BACKGROUND_COLOR = 0xFFFFFFFF;
