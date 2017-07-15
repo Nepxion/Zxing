@@ -22,11 +22,14 @@ import com.nepxion.zxing.util.ZxingUtils;
 
 public class ZxingTest {
     public static void main(String[] args) throws Exception {
-        executeForFile();
-        executeForBytes();
+        executeForQRFile();
+        // executeForQRBytes();
+
+        executeForEANFile();
+        // executeForEANBytes();
     }
 
-    public static void executeForFile() {
+    public static void executeForQRFile() {
         // 二维码内容
         String text = "https://github.com/Nepxion/";
         // 二维码图片导出路径
@@ -49,7 +52,7 @@ public class ZxingTest {
         System.out.println("[Text] : " + result.getText() + " [Timestamp] : " + result.getTimestamp() + " [BarcodeFormat] : " + result.getBarcodeFormat() + " [NumBits] : " + result.getNumBits());
     }
 
-    public static void executeForBytes() throws IOException {
+    public static void executeForQRBytes() throws IOException {
         // 二维码内容
         String text = "https://github.com/Nepxion/";
         // 二维码图片导出路径
@@ -58,6 +61,54 @@ public class ZxingTest {
         // 二维码参数的构造对象，很多参数赋予了默认值，可自行通过set方法更改
         ZxingEntity entity = new ZxingEntity();
         entity.setBarcodeFormat(BarcodeFormat.QR_CODE);
+        entity.setText(text);
+        entity.setOutputFile(file);
+
+        // 以字节数组格式读取并导出，该方式适合服务端传输给客户端调用
+        ZxingEncoder encoder = new ZxingEncoder();
+        byte[] bytes = encoder.encodeForBytes(entity);
+
+        ZxingUtils.createFile(bytes, file);
+
+        // 以字节数组格式扫描并解析
+        ZxingDecoder decoder = new ZxingDecoder();
+        Result result = decoder.decodeByBytes(bytes, entity.getEncoding());
+
+        System.out.println("[Text] : " + result.getText() + " [Timestamp] : " + result.getTimestamp() + " [BarcodeFormat] : " + result.getBarcodeFormat() + " [NumBits] : " + result.getNumBits());
+    }
+
+    public static void executeForEANFile() {
+        // 条形码内容
+        String text = "6943620593115";
+        // 条形码图片导出路径
+        File file = new File("E:/条形码.jpg");
+
+        // 条形码参数的构造对象，很多参数赋予了默认值，可自行通过set方法更改
+        ZxingEntity entity = new ZxingEntity();
+        entity.setBarcodeFormat(BarcodeFormat.EAN_13);
+        entity.setText(text);
+        entity.setOutputFile(file);
+
+        // 以文件格式读取并导出，该方式适合本地调用
+        ZxingEncoder encoder = new ZxingEncoder();
+        encoder.encodeForFile(entity);
+
+        // 以文件格式扫描并解析
+        ZxingDecoder decoder = new ZxingDecoder();
+        Result result = decoder.decodeByFile(file, entity.getEncoding());
+
+        System.out.println("[Text] : " + result.getText() + " [Timestamp] : " + result.getTimestamp() + " [BarcodeFormat] : " + result.getBarcodeFormat() + " [NumBits] : " + result.getNumBits());
+    }
+
+    public static void executeForEANBytes() throws IOException {
+        // 条形码内容
+        String text = "6943620593115";
+        // 条形码图片导出路径
+        File file = new File("E:/条形码.jpg");
+
+        // 条形码参数的构造对象，很多参数赋予了默认值，可自行通过set方法更改
+        ZxingEntity entity = new ZxingEntity();
+        entity.setBarcodeFormat(BarcodeFormat.EAN_13);
         entity.setText(text);
         entity.setOutputFile(file);
 
