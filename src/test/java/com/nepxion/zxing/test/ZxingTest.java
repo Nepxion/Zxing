@@ -13,6 +13,7 @@ package com.nepxion.zxing.test;
 import java.io.File;
 import java.io.IOException;
 
+import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 import com.nepxion.zxing.core.ZxingDecoder;
 import com.nepxion.zxing.core.ZxingEncoder;
@@ -29,10 +30,11 @@ public class ZxingTest {
         // 二维码内容
         String text = "https://github.com/Nepxion/";
         // 二维码图片导出路径
-        File file = new File("D:/二维码.jpg");
+        File file = new File("E:/二维码.jpg");
 
         // 二维码参数的构造对象，很多参数赋予了默认值，可自行通过set方法更改
         ZxingEntity entity = new ZxingEntity();
+        entity.setBarcodeFormat(BarcodeFormat.QR_CODE);
         entity.setText(text);
         entity.setOutputFile(file);
 
@@ -51,10 +53,11 @@ public class ZxingTest {
         // 二维码内容
         String text = "https://github.com/Nepxion/";
         // 二维码图片导出路径
-        File file = new File("D:/二维码.jpg");
+        File file = new File("E:/二维码.jpg");
 
         // 二维码参数的构造对象，很多参数赋予了默认值，可自行通过set方法更改
         ZxingEntity entity = new ZxingEntity();
+        entity.setBarcodeFormat(BarcodeFormat.QR_CODE);
         entity.setText(text);
         entity.setOutputFile(file);
 

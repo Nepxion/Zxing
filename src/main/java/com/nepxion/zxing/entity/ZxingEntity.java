@@ -18,12 +18,14 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.google.zxing.BarcodeFormat;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.nepxion.zxing.constant.ZxingConstants;
 
 public class ZxingEntity implements Serializable {
     private static final long serialVersionUID = 4989668966674254634L;
 
+    private BarcodeFormat barcodeFormat;
     private String text;
     private String format = ZxingConstants.DEFAULT_FORMAT;
     private String encoding = ZxingConstants.DEFAULT_ENCODING;
@@ -36,6 +38,14 @@ public class ZxingEntity implements Serializable {
     private boolean deleteWhiteBorder = ZxingConstants.DEFAULT_DELETE_WHITE_BORDER;
     private File logoFile = new File(ZxingConstants.DEFAULT_LOGO_PATH);
     private File outputFile;
+
+    public BarcodeFormat getBarcodeFormat() {
+        return barcodeFormat;
+    }
+
+    public void setBarcodeFormat(BarcodeFormat barcodeFormat) {
+        this.barcodeFormat = barcodeFormat;
+    }
 
     public String getText() {
         return text;

@@ -59,27 +59,31 @@ public class ZxingEncoder {
     private static final Logger LOG = LoggerFactory.getLogger(ZxingEncoder.class);
 
     public InputStream encodeForInputStream(ZxingEntity zxingEntity) {
-        return encodeForInputStream(zxingEntity.getText(), zxingEntity.getFormat(), zxingEntity.getEncoding(), zxingEntity.getCorrectionLevel(), zxingEntity.getWidth(), zxingEntity.getHeight(), zxingEntity.getMargin(), zxingEntity.getForegroundColor(), zxingEntity.getBackgroundColor(), zxingEntity.isDeleteWhiteBorder(), zxingEntity.getLogoFile());
+        return encodeForInputStream(zxingEntity.getBarcodeFormat(), zxingEntity.getText(), zxingEntity.getFormat(), zxingEntity.getEncoding(), zxingEntity.getCorrectionLevel(), zxingEntity.getWidth(), zxingEntity.getHeight(), zxingEntity.getMargin(), zxingEntity.getForegroundColor(), zxingEntity.getBackgroundColor(), zxingEntity.isDeleteWhiteBorder(), zxingEntity.getLogoFile());
     }
 
-    public InputStream encodeForInputStream(String text, String format, String encoding, ErrorCorrectionLevel correctionLevel, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder, File logoFile) {
-        byte[] bytes = encodeForBytes(text, format, encoding, correctionLevel, width, height, margin, foregroundColor, backgroundColor, deleteWhiteBorder, logoFile);
+    public InputStream encodeForInputStream(BarcodeFormat barcodeFormat, String text, String format, String encoding, ErrorCorrectionLevel correctionLevel, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder, File logoFile) {
+        byte[] bytes = encodeForBytes(barcodeFormat, text, format, encoding, correctionLevel, width, height, margin, foregroundColor, backgroundColor, deleteWhiteBorder, logoFile);
 
         return new ByteArrayInputStream(bytes);
     }
 
     public byte[] encodeForBytes(ZxingEntity zxingEntity) {
-        return encodeForBytes(zxingEntity.getText(), zxingEntity.getFormat(), zxingEntity.getEncoding(), zxingEntity.getCorrectionLevel(), zxingEntity.getWidth(), zxingEntity.getHeight(), zxingEntity.getMargin(), zxingEntity.getForegroundColor(), zxingEntity.getBackgroundColor(), zxingEntity.isDeleteWhiteBorder(), zxingEntity.getLogoFile());
+        return encodeForBytes(zxingEntity.getBarcodeFormat(), zxingEntity.getText(), zxingEntity.getFormat(), zxingEntity.getEncoding(), zxingEntity.getCorrectionLevel(), zxingEntity.getWidth(), zxingEntity.getHeight(), zxingEntity.getMargin(), zxingEntity.getForegroundColor(), zxingEntity.getBackgroundColor(), zxingEntity.isDeleteWhiteBorder(), zxingEntity.getLogoFile());
     }
 
-    public byte[] encodeForBytes(String text, String format, String encoding, ErrorCorrectionLevel correctionLevel, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder, File logoFile) {
+    public byte[] encodeForBytes(BarcodeFormat barcodeFormat, String text, String format, String encoding, ErrorCorrectionLevel correctionLevel, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder, File logoFile) {
+        if (barcodeFormat == null) {
+            throw new ZxingException("Barcode format is null");
+        }
+
         ByteArrayOutputStream outputStream = null;
         try {
             Map<EncodeHintType, Object> hints = createHints(encoding, correctionLevel, margin);
             MultiFormatWriter formatWriter = new MultiFormatWriter();
 
             MatrixToImageConfig imageConfig = new MatrixToImageConfig(foregroundColor, backgroundColor);
-            BitMatrix bitMatrix = formatWriter.encode(text, BarcodeFormat.QR_CODE, width, height, hints);
+            BitMatrix bitMatrix = formatWriter.encode(text, barcodeFormat, width, height, hints);
 
             // 删除二维码四周的白边
             if (deleteWhiteBorder) {
@@ -89,7 +93,7 @@ public class ZxingEncoder {
             outputStream = new ByteArrayOutputStream();
 
             // 先输出Logo
-            if (logoFile != null) {
+            if (barcodeFormat == BarcodeFormat.QR_CODE && logoFile != null) {
                 BufferedImage logoImage = createLogoImage(bitMatrix, foregroundColor, backgroundColor, logoFile);
 
                 if (!ImageIO.write(logoImage, format, outputStream)) {
@@ -115,20 +119,24 @@ public class ZxingEncoder {
     }
 
     public File encodeForFile(ZxingEntity zxingEntity) {
-        return encodeForFile(zxingEntity.getText(), zxingEntity.getFormat(), zxingEntity.getEncoding(), zxingEntity.getCorrectionLevel(), zxingEntity.getWidth(), zxingEntity.getHeight(), zxingEntity.getMargin(), zxingEntity.getForegroundColor(), zxingEntity.getBackgroundColor(), zxingEntity.isDeleteWhiteBorder(), zxingEntity.getLogoFile(), zxingEntity.getOutputFile());
+        return encodeForFile(zxingEntity.getBarcodeFormat(), zxingEntity.getText(), zxingEntity.getFormat(), zxingEntity.getEncoding(), zxingEntity.getCorrectionLevel(), zxingEntity.getWidth(), zxingEntity.getHeight(), zxingEntity.getMargin(), zxingEntity.getForegroundColor(), zxingEntity.getBackgroundColor(), zxingEntity.isDeleteWhiteBorder(), zxingEntity.getLogoFile(), zxingEntity.getOutputFile());
     }
 
-    public File encodeForFile(String text, String format, String encoding, ErrorCorrectionLevel correctionLevel, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder, File outputFile) {
-        return encodeForFile(text, format, encoding, correctionLevel, width, height, margin, foregroundColor, backgroundColor, deleteWhiteBorder, null, outputFile);
+    public File encodeForFile(BarcodeFormat barcodeFormat, String text, String format, String encoding, ErrorCorrectionLevel correctionLevel, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder, File outputFile) {
+        return encodeForFile(barcodeFormat, text, format, encoding, correctionLevel, width, height, margin, foregroundColor, backgroundColor, deleteWhiteBorder, null, outputFile);
     }
 
-    public File encodeForFile(String text, String format, String encoding, ErrorCorrectionLevel correctionLevel, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder, File logoFile, File outputFile) {
+    public File encodeForFile(BarcodeFormat barcodeFormat, String text, String format, String encoding, ErrorCorrectionLevel correctionLevel, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder, File logoFile, File outputFile) {
+        if (barcodeFormat == null) {
+            throw new ZxingException("Barcode format is null");
+        }
+
         try {
             Map<EncodeHintType, Object> hints = createHints(encoding, correctionLevel, margin);
             MultiFormatWriter formatWriter = new MultiFormatWriter();
 
             MatrixToImageConfig imageConfig = new MatrixToImageConfig(foregroundColor, backgroundColor);
-            BitMatrix bitMatrix = formatWriter.encode(text, BarcodeFormat.QR_CODE, width, height, hints);
+            BitMatrix bitMatrix = formatWriter.encode(text, barcodeFormat, width, height, hints);
 
             // 删除二维码四周的白边
             if (deleteWhiteBorder) {
@@ -141,7 +149,7 @@ public class ZxingEncoder {
             MatrixToImageWriter.writeToPath(bitMatrix, format, outputFile.toPath(), imageConfig);
 
             // 再输出Logo
-            if (logoFile != null) {
+            if (barcodeFormat == BarcodeFormat.QR_CODE && logoFile != null) {
                 BufferedImage logoImage = createLogoImage(bitMatrix, foregroundColor, backgroundColor, logoFile);
 
                 if (!ImageIO.write(logoImage, format, outputFile)) {
@@ -225,7 +233,7 @@ public class ZxingEncoder {
     private Map<EncodeHintType, Object> createHints(String encoding, ErrorCorrectionLevel correctionLevel, int margin) {
         Map<EncodeHintType, Object> hints = new HashMap<EncodeHintType, Object>();
         hints.put(EncodeHintType.CHARACTER_SET, encoding); // 设置编码
-        hints.put(EncodeHintType.ERROR_CORRECTION, correctionLevel); // 指定纠错等级    
+        hints.put(EncodeHintType.ERROR_CORRECTION, correctionLevel); // 指定纠错等级
         hints.put(EncodeHintType.MARGIN, margin); //设置白边
 
         return hints;
