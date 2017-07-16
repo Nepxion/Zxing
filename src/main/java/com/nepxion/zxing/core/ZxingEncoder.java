@@ -25,6 +25,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -83,12 +84,40 @@ public class ZxingEncoder {
             throw new ZxingException("Barcode format is null");
         }
 
+        if (StringUtils.isEmpty(text)) {
+            throw new ZxingException("Text is null or empty");
+        }
+
+        if (StringUtils.isEmpty(format)) {
+            throw new ZxingException("Format is null or empty");
+        }
+
+        if (StringUtils.isEmpty(encoding)) {
+            throw new ZxingException("Encoding is null or empty");
+        }
+
+        if (correctionLevel == null) {
+            throw new ZxingException("Correction level is null");
+        }
+
         if (width <= 0) {
             throw new ZxingException("Invalid width=" + width);
         }
 
         if (height <= 0) {
             throw new ZxingException("Invalid height=" + height);
+        }
+
+        if (margin < 0 || margin > 4) {
+            throw new ZxingException("Invalid margin=" + height + ", it must be [0, 4]");
+        }
+
+        if (foregroundColor <= 0) {
+            throw new ZxingException("Invalid foreground color=" + height);
+        }
+
+        if (backgroundColor <= 0) {
+            throw new ZxingException("Invalid background color=" + height);
         }
 
         ByteArrayOutputStream outputStream = null;
@@ -151,12 +180,44 @@ public class ZxingEncoder {
             throw new ZxingException("Barcode format is null");
         }
 
+        if (StringUtils.isEmpty(text)) {
+            throw new ZxingException("Text is null or empty");
+        }
+
+        if (StringUtils.isEmpty(format)) {
+            throw new ZxingException("Format is null or empty");
+        }
+
+        if (StringUtils.isEmpty(encoding)) {
+            throw new ZxingException("Encoding is null or empty");
+        }
+
+        if (correctionLevel == null) {
+            throw new ZxingException("Correction level is null");
+        }
+
         if (width <= 0) {
             throw new ZxingException("Invalid width=" + width);
         }
 
         if (height <= 0) {
             throw new ZxingException("Invalid height=" + height);
+        }
+
+        if (margin < 0 || margin > 4) {
+            throw new ZxingException("Invalid margin=" + height + ", it must be [0, 4]");
+        }
+
+        if (foregroundColor <= 0) {
+            throw new ZxingException("Invalid foreground color=" + height);
+        }
+
+        if (backgroundColor <= 0) {
+            throw new ZxingException("Invalid background color=" + height);
+        }
+
+        if (outputFile == null) {
+            throw new ZxingException("Output file is null");
         }
 
         try {
