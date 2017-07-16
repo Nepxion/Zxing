@@ -53,26 +53,32 @@ import com.nepxion.zxing.util.ZxingUtils;
  * backgroundColor   二维码/条形码图片背景色。格式如0xFFFFFFFF
  * deleteWhiteBorder 二维码图片白边去除。当图片面积较小时候，可以利用该方法扩大二维码/条形码的显示面积
  * logoFile          二维码Logo图片的文件，File对象。显示在二维码中间的Logo图片，其在二维码中的尺寸最大为100x100左右，否则会覆盖二维码导致最后不能被识别
+ * logoBytes         二维码Logo图片的字节数组。方便于使用者在外部传入，当logoBytes不为null的时候，使用logoBytes做为Logo图片渲染，当为null的时候采用上面的logoFile做为Logo图片渲染
  * outputFile        二维码/条形码图片的导出文件，File对象
  */
 public class ZxingEncoder {
     private static final Logger LOG = LoggerFactory.getLogger(ZxingEncoder.class);
 
     public InputStream encodeForInputStream(ZxingEntity zxingEntity) {
-        return encodeForInputStream(zxingEntity.getBarcodeFormat(), zxingEntity.getText(), zxingEntity.getFormat(), zxingEntity.getEncoding(), zxingEntity.getCorrectionLevel(), zxingEntity.getWidth(), zxingEntity.getHeight(), zxingEntity.getMargin(), zxingEntity.getForegroundColor(), zxingEntity.getBackgroundColor(), zxingEntity.isDeleteWhiteBorder(), zxingEntity.getLogoFile());
-    }
-
-    public InputStream encodeForInputStream(BarcodeFormat barcodeFormat, String text, String format, String encoding, ErrorCorrectionLevel correctionLevel, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder, File logoFile) {
-        byte[] bytes = encodeForBytes(barcodeFormat, text, format, encoding, correctionLevel, width, height, margin, foregroundColor, backgroundColor, deleteWhiteBorder, logoFile);
+        byte[] bytes = encodeForBytes(zxingEntity);
 
         return new ByteArrayInputStream(bytes);
     }
 
     public byte[] encodeForBytes(ZxingEntity zxingEntity) {
-        return encodeForBytes(zxingEntity.getBarcodeFormat(), zxingEntity.getText(), zxingEntity.getFormat(), zxingEntity.getEncoding(), zxingEntity.getCorrectionLevel(), zxingEntity.getWidth(), zxingEntity.getHeight(), zxingEntity.getMargin(), zxingEntity.getForegroundColor(), zxingEntity.getBackgroundColor(), zxingEntity.isDeleteWhiteBorder(), zxingEntity.getLogoFile());
-    }
+        BarcodeFormat barcodeFormat = zxingEntity.getBarcodeFormat();
+        String text = zxingEntity.getText();
+        String format = zxingEntity.getFormat();
+        String encoding = zxingEntity.getEncoding();
+        ErrorCorrectionLevel correctionLevel = zxingEntity.getCorrectionLevel();
+        int width = zxingEntity.getWidth();
+        int height = zxingEntity.getHeight();
+        int margin = zxingEntity.getMargin();
+        int foregroundColor = zxingEntity.getForegroundColor();
+        int backgroundColor = zxingEntity.getBackgroundColor();
+        boolean deleteWhiteBorder = zxingEntity.isDeleteWhiteBorder();
+        boolean hasLogo = zxingEntity.hasLogo();
 
-    public byte[] encodeForBytes(BarcodeFormat barcodeFormat, String text, String format, String encoding, ErrorCorrectionLevel correctionLevel, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder, File logoFile) {
         if (barcodeFormat == null) {
             throw new ZxingException("Barcode format is null");
         }
@@ -101,8 +107,8 @@ public class ZxingEncoder {
             outputStream = new ByteArrayOutputStream();
 
             // 先输出Logo
-            if (barcodeFormat == BarcodeFormat.QR_CODE && logoFile != null) {
-                BufferedImage logoImage = createLogoImage(bitMatrix, foregroundColor, backgroundColor, logoFile);
+            if (barcodeFormat == BarcodeFormat.QR_CODE && hasLogo) {
+                BufferedImage logoImage = createLogoImage(bitMatrix, foregroundColor, backgroundColor, zxingEntity);
 
                 if (!ImageIO.write(logoImage, format, outputStream)) {
                     throw new ZxingException("Failed to write logo image");
@@ -127,14 +133,20 @@ public class ZxingEncoder {
     }
 
     public File encodeForFile(ZxingEntity zxingEntity) {
-        return encodeForFile(zxingEntity.getBarcodeFormat(), zxingEntity.getText(), zxingEntity.getFormat(), zxingEntity.getEncoding(), zxingEntity.getCorrectionLevel(), zxingEntity.getWidth(), zxingEntity.getHeight(), zxingEntity.getMargin(), zxingEntity.getForegroundColor(), zxingEntity.getBackgroundColor(), zxingEntity.isDeleteWhiteBorder(), zxingEntity.getLogoFile(), zxingEntity.getOutputFile());
-    }
+        BarcodeFormat barcodeFormat = zxingEntity.getBarcodeFormat();
+        String text = zxingEntity.getText();
+        String format = zxingEntity.getFormat();
+        String encoding = zxingEntity.getEncoding();
+        ErrorCorrectionLevel correctionLevel = zxingEntity.getCorrectionLevel();
+        int width = zxingEntity.getWidth();
+        int height = zxingEntity.getHeight();
+        int margin = zxingEntity.getMargin();
+        int foregroundColor = zxingEntity.getForegroundColor();
+        int backgroundColor = zxingEntity.getBackgroundColor();
+        boolean deleteWhiteBorder = zxingEntity.isDeleteWhiteBorder();
+        boolean hasLogo = zxingEntity.hasLogo();
+        File outputFile = zxingEntity.getOutputFile();
 
-    public File encodeForFile(BarcodeFormat barcodeFormat, String text, String format, String encoding, ErrorCorrectionLevel correctionLevel, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder, File outputFile) {
-        return encodeForFile(barcodeFormat, text, format, encoding, correctionLevel, width, height, margin, foregroundColor, backgroundColor, deleteWhiteBorder, null, outputFile);
-    }
-
-    public File encodeForFile(BarcodeFormat barcodeFormat, String text, String format, String encoding, ErrorCorrectionLevel correctionLevel, int width, int height, int margin, int foregroundColor, int backgroundColor, boolean deleteWhiteBorder, File logoFile, File outputFile) {
         if (barcodeFormat == null) {
             throw new ZxingException("Barcode format is null");
         }
@@ -165,8 +177,8 @@ public class ZxingEncoder {
             MatrixToImageWriter.writeToPath(bitMatrix, format, outputFile.toPath(), imageConfig);
 
             // 再输出Logo
-            if (barcodeFormat == BarcodeFormat.QR_CODE && logoFile != null) {
-                BufferedImage logoImage = createLogoImage(bitMatrix, foregroundColor, backgroundColor, logoFile);
+            if (barcodeFormat == BarcodeFormat.QR_CODE && hasLogo) {
+                BufferedImage logoImage = createLogoImage(bitMatrix, foregroundColor, backgroundColor, zxingEntity);
 
                 if (!ImageIO.write(logoImage, format, outputFile)) {
                     throw new ZxingException("Failed to write logo image");
@@ -199,7 +211,7 @@ public class ZxingEncoder {
         return matrix;
     }
 
-    private BufferedImage createLogoImage(BitMatrix bitMatrix, int foregroundColor, int backgroundColor, File logoFile) throws IOException {
+    private BufferedImage createLogoImage(BitMatrix bitMatrix, int foregroundColor, int backgroundColor, ZxingEntity zxingEntity) throws IOException {
         BufferedImage image = createBufferedImage(bitMatrix, foregroundColor, backgroundColor);
         Graphics2D g2d = image.createGraphics();
 
@@ -215,7 +227,16 @@ public class ZxingEncoder {
         }
 
         // 载入Logo
-        Image logoImage = ImageIO.read(logoFile);
+        File logoFile = zxingEntity.getLogoFile();
+        byte[] logoBytes = zxingEntity.getLogoBytes();
+
+        Image logoImage = null;
+        if (logoBytes != null) {
+            logoImage = ImageIO.read(new ByteArrayInputStream(logoBytes));
+        } else {
+            logoImage = ImageIO.read(logoFile);
+        }
+
         int logoWidth = logoImage.getWidth(null) > ratioWidth ? ratioWidth : logoImage.getWidth(null);
         int logoHeight = logoImage.getHeight(null) > ratioHeight ? ratioHeight : logoImage.getHeight(null);
 

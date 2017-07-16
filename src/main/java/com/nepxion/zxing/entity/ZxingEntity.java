@@ -37,6 +37,7 @@ public class ZxingEntity implements Serializable {
     private int backgroundColor = ZxingConstants.DEFAULT_BACKGROUND_COLOR;
     private boolean deleteWhiteBorder = ZxingConstants.DEFAULT_DELETE_WHITE_BORDER;
     private File logoFile = new File(ZxingConstants.DEFAULT_LOGO_PATH);
+    private byte[] logoBytes;
     private File outputFile;
 
     public BarcodeFormat getBarcodeFormat() {
@@ -134,7 +135,19 @@ public class ZxingEntity implements Serializable {
     public void setLogoFile(File logoFile) {
         this.logoFile = logoFile;
     }
-    
+
+    public byte[] getLogoBytes() {
+        return logoBytes;
+    }
+
+    public void setLogoBytes(byte[] logoBytes) {
+        this.logoBytes = logoBytes;
+    }
+
+    public boolean hasLogo() {
+        return logoFile != null || logoBytes != null;
+    }
+
     public File getOutputFile() {
         return outputFile;
     }
