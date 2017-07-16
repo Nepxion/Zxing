@@ -109,15 +109,7 @@ public class ZxingEncoder {
         }
 
         if (margin < 0 || margin > 4) {
-            throw new ZxingException("Invalid margin=" + height + ", it must be [0, 4]");
-        }
-
-        if (foregroundColor <= 0) {
-            throw new ZxingException("Invalid foreground color=" + height);
-        }
-
-        if (backgroundColor <= 0) {
-            throw new ZxingException("Invalid background color=" + height);
+            throw new ZxingException("Invalid margin=" + margin + ", it must be [0, 4]");
         }
 
         ByteArrayOutputStream outputStream = null;
@@ -205,15 +197,7 @@ public class ZxingEncoder {
         }
 
         if (margin < 0 || margin > 4) {
-            throw new ZxingException("Invalid margin=" + height + ", it must be [0, 4]");
-        }
-
-        if (foregroundColor <= 0) {
-            throw new ZxingException("Invalid foreground color=" + height);
-        }
-
-        if (backgroundColor <= 0) {
-            throw new ZxingException("Invalid background color=" + height);
+            throw new ZxingException("Invalid margin=" + margin + ", it must be [0, 4]");
         }
 
         if (outputFile == null) {
