@@ -21,39 +21,9 @@
  * outputFile        二维码/条形码图片的导出文件，File对象
  */
 ```
-## 示例代码
+
+## 创建二维码图片并扫描的示例
 ```java
-package com.nepxion.zxing.test;
-
-/**
- * <p>Title: Nepxion Zxing</p>
- * <p>Description: Nepxion Zxing QR Code</p>
- * <p>Copyright: Copyright (c) 2017</p>
- * <p>Company: Nepxion</p>
- * @author Haojun Ren
- * @email 1394997@qq.com
- * @version 1.0
- */
-
-import java.io.File;
-import java.io.IOException;
-
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.Result;
-import com.nepxion.zxing.core.ZxingDecoder;
-import com.nepxion.zxing.core.ZxingEncoder;
-import com.nepxion.zxing.entity.ZxingEntity;
-import com.nepxion.zxing.util.ZxingUtils;
-
-public class ZxingTest {
-    public static void main(String[] args) throws Exception {
-        executeForQRFile();
-        // executeForQRBytes();
-
-        executeForEANFile();
-        // executeForEANBytes();
-    }
-
     public static void executeForQRFile() {
         // 二维码内容
         String text = "https://github.com/Nepxion/";
@@ -78,7 +48,10 @@ public class ZxingTest {
 
         System.out.println("扫描结果 - [Text] : " + result.getText() + " [Timestamp] : " + result.getTimestamp() + " [BarcodeFormat] : " + result.getBarcodeFormat() + " [NumBits] : " + result.getNumBits());
     }
+```
 
+## 创建二维码图片字节数组(用于网络传递)并扫描的示例
+```java
     public static void executeForQRBytes() throws IOException {
         // 二维码内容
         String text = "https://github.com/Nepxion/";
@@ -105,7 +78,10 @@ public class ZxingTest {
 
         System.out.println("扫描结果 - [Text] : " + result.getText() + " [Timestamp] : " + result.getTimestamp() + " [BarcodeFormat] : " + result.getBarcodeFormat() + " [NumBits] : " + result.getNumBits());
     }
+```
 
+## 创建条形码图片并扫描的示例
+```java
     public static void executeForEANFile() {
         // 条形码内容
         String text = "6943620593115";
@@ -130,7 +106,10 @@ public class ZxingTest {
 
         System.out.println("扫描结果 - [Text] : " + result.getText() + " [Timestamp] : " + result.getTimestamp() + " [BarcodeFormat] : " + result.getBarcodeFormat() + " [NumBits] : " + result.getNumBits());
     }
+```
 
+## 创建条形码图片字节数组(用于网络传递)并扫描的示例
+```java
     public static void executeForEANBytes() throws IOException {
         // 条形码内容
         String text = "6943620593115";
@@ -157,8 +136,8 @@ public class ZxingTest {
 
         System.out.println("扫描结果 - [Text] : " + result.getText() + " [Timestamp] : " + result.getTimestamp() + " [BarcodeFormat] : " + result.getBarcodeFormat() + " [NumBits] : " + result.getNumBits());
     }
-}
 ```
+
 ## 二维码示例图片
 ![Alt text](https://github.com/Nepxion/Zxing/blob/master/二维码示例.jpg)
 
