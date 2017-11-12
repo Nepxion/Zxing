@@ -21,4 +21,18 @@ public class ZxingConstants {
     public static final int DEFAULT_BACKGROUND_COLOR = 0xFFFFFFFF;
     public static final boolean DEFAULT_DELETE_WHITE_BORDER = false;
     public static final String DEFAULT_LOGO_PATH = "src/main/resources/logo.jpg";
+
+    static {
+        System.out.println("");
+        System.out.println("╔════╗");
+        System.out.println("╚══╗═║");
+        System.out.println("  ╔╝╔╬╗╔╦╦═╗╔══╗");
+        System.out.println(" ╔╝╔╝╚╬╬╬╣╔╗╣╔╗║");
+        System.out.println("╔╝═╚═╦╬╬╣║║║║╚╝║");
+        System.out.println("╚════╩╝╚╩╩╝╚╩═╗║");
+        System.out.println("            ╔═╝║");
+        System.out.println("            ╚══╝");
+        System.out.println("Nepxion Zxing  v1.0.0.RELEASE");
+        System.out.println("");
+    }
 }

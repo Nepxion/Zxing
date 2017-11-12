@@ -33,7 +33,7 @@ public class ZxingTest {
         // 二维码内容
         String text = "https://github.com/Nepxion/";
         // 二维码图片导出路径
-        File file = new File("E:/二维码.jpg");
+        File file = new File("E:/Download/二维码.jpg");
 
         // 二维码参数的构造对象，很多参数赋予了默认值，可自行通过set方法更改
         ZxingEntity entity = new ZxingEntity();
@@ -58,7 +58,7 @@ public class ZxingTest {
         // 二维码内容
         String text = "https://github.com/Nepxion/";
         // 二维码图片导出路径
-        File file = new File("E:/二维码.jpg");
+        File file = new File("E:/Download/二维码.jpg");
 
         // 二维码参数的构造对象，很多参数赋予了默认值，可自行通过set方法更改
         ZxingEntity entity = new ZxingEntity();
@@ -85,7 +85,7 @@ public class ZxingTest {
         // 条形码内容
         String text = "6943620593115";
         // 条形码图片导出路径
-        File file = new File("E:/条形码.jpg");
+        File file = new File("E:/Download/条形码.jpg");
 
         // 条形码参数的构造对象，很多参数赋予了默认值，可自行通过set方法更改
         ZxingEntity entity = new ZxingEntity();
@@ -110,7 +110,7 @@ public class ZxingTest {
         // 条形码内容
         String text = "6943620593115";
         // 条形码图片导出路径
-        File file = new File("E:/条形码.jpg");
+        File file = new File("E:/Download/条形码.jpg");
 
         // 条形码参数的构造对象，很多参数赋予了默认值，可自行通过set方法更改
         ZxingEntity entity = new ZxingEntity();
