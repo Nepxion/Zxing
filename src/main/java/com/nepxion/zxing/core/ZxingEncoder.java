@@ -39,7 +39,7 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.nepxion.zxing.entity.ZxingEntity;
 import com.nepxion.zxing.exception.ZxingException;
-import com.nepxion.zxing.util.ZxingUtils;
+import com.nepxion.zxing.util.ZxingUtil;
 
 /**
  * 相关参数说明
@@ -216,7 +216,7 @@ public class ZxingEncoder {
                 bitMatrix = deleteWhiteBorder(bitMatrix);
             }
 
-            ZxingUtils.createDirectory(outputFile);
+            ZxingUtil.createDirectory(outputFile);
 
             // 先输出二维码/条形码
             MatrixToImageWriter.writeToPath(bitMatrix, format, outputFile.toPath(), imageConfig);

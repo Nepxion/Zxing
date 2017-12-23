@@ -12,7 +12,7 @@ package com.nepxion.zxing.constant;
 
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
-public class ZxingConstants {
+public class ZxingConstant {
     public static final String DEFAULT_FORMAT = "jpg";
     public static final String DEFAULT_ENCODING = "UTF-8";
     public static final ErrorCorrectionLevel DEFAULT_CORRECTION_LEVEL = ErrorCorrectionLevel.H;

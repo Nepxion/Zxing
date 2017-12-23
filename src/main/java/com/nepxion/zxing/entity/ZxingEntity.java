@@ -20,23 +20,23 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-import com.nepxion.zxing.constant.ZxingConstants;
+import com.nepxion.zxing.constant.ZxingConstant;
 
 public class ZxingEntity implements Serializable {
     private static final long serialVersionUID = 4989668966674254634L;
 
     private BarcodeFormat barcodeFormat;
     private String text;
-    private String format = ZxingConstants.DEFAULT_FORMAT;
-    private String encoding = ZxingConstants.DEFAULT_ENCODING;
-    private ErrorCorrectionLevel correctionLevel = ZxingConstants.DEFAULT_CORRECTION_LEVEL;
+    private String format = ZxingConstant.DEFAULT_FORMAT;
+    private String encoding = ZxingConstant.DEFAULT_ENCODING;
+    private ErrorCorrectionLevel correctionLevel = ZxingConstant.DEFAULT_CORRECTION_LEVEL;
     private int width;
     private int height;
-    private int margin = ZxingConstants.DEFAULT_MARGIN;
-    private int foregroundColor = ZxingConstants.DEFAULT_FOREGROUND_COLOR;
-    private int backgroundColor = ZxingConstants.DEFAULT_BACKGROUND_COLOR;
-    private boolean deleteWhiteBorder = ZxingConstants.DEFAULT_DELETE_WHITE_BORDER;
-    private File logoFile = new File(ZxingConstants.DEFAULT_LOGO_PATH);
+    private int margin = ZxingConstant.DEFAULT_MARGIN;
+    private int foregroundColor = ZxingConstant.DEFAULT_FOREGROUND_COLOR;
+    private int backgroundColor = ZxingConstant.DEFAULT_BACKGROUND_COLOR;
+    private boolean deleteWhiteBorder = ZxingConstant.DEFAULT_DELETE_WHITE_BORDER;
+    private File logoFile = new File(ZxingConstant.DEFAULT_LOGO_PATH);
     private byte[] logoBytes;
     private File outputFile;
 

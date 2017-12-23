@@ -18,7 +18,7 @@ import com.google.zxing.Result;
 import com.nepxion.zxing.core.ZxingDecoder;
 import com.nepxion.zxing.core.ZxingEncoder;
 import com.nepxion.zxing.entity.ZxingEntity;
-import com.nepxion.zxing.util.ZxingUtils;
+import com.nepxion.zxing.util.ZxingUtil;
 
 public class ZxingTest {
     public static void main(String[] args) throws Exception {
@@ -31,7 +31,7 @@ public class ZxingTest {
 
     public static void executeForQRFile() {
         // 二维码内容
-        String text = "https://github.com/Nepxion/";
+        String text = "http://www.nepxion.com";
         // 二维码图片导出路径
         File file = new File("E:/Download/二维码.jpg");
 
@@ -56,7 +56,7 @@ public class ZxingTest {
 
     public static void executeForQRBytes() throws IOException {
         // 二维码内容
-        String text = "https://github.com/Nepxion/";
+        String text = "http://www.nepxion.com";
         // 二维码图片导出路径
         File file = new File("E:/Download/二维码.jpg");
 
@@ -72,7 +72,7 @@ public class ZxingTest {
         ZxingEncoder encoder = new ZxingEncoder();
         byte[] bytes = encoder.encodeForBytes(entity);
 
-        ZxingUtils.createFile(bytes, file);
+        ZxingUtil.createFile(bytes, file);
 
         // 以字节数组格式扫描并解析
         ZxingDecoder decoder = new ZxingDecoder();
@@ -124,7 +124,7 @@ public class ZxingTest {
         ZxingEncoder encoder = new ZxingEncoder();
         byte[] bytes = encoder.encodeForBytes(entity);
 
-        ZxingUtils.createFile(bytes, file);
+        ZxingUtil.createFile(bytes, file);
 
         // 以字节数组格式扫描并解析
         ZxingDecoder decoder = new ZxingDecoder();

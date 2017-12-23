@@ -17,7 +17,7 @@ import java.io.IOException;
 
 import org.apache.commons.io.IOUtils;
 
-public class ZxingUtils {
+public class ZxingUtil {
     public static void createFile(byte[] bytes, File file) throws IOException {
         String filePath = file.getCanonicalPath();
         filePath = filePath.replace("\\", "/");
