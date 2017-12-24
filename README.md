@@ -24,7 +24,7 @@ Nepxion Zxing是一款基于Google Zxing的二维码/条形码生成组件
 ```
 
 ## 示例
-创建二维码图片并扫描的示例
+创建二维码图片并扫描的调用入口
 ```java
 public static void executeForQRFile() {
     // 二维码内容
@@ -52,7 +52,7 @@ public static void executeForQRFile() {
 }
 ```
 
-创建二维码图片字节数组(用于网络传递)并扫描的示例
+创建二维码图片字节数组(用于网络传递)并扫描的调用入口
 ```java
 public static void executeForQRBytes() throws IOException {
     // 二维码内容
@@ -82,7 +82,7 @@ public static void executeForQRBytes() throws IOException {
 }
 ```
 
-创建条形码图片并扫描的示例
+创建条形码图片并扫描的调用入口
 ```java
 public static void executeForEANFile() {
     // 条形码内容
@@ -110,7 +110,7 @@ public static void executeForEANFile() {
 }
 ```
 
-创建条形码图片字节数组(用于网络传递)并扫描的示例
+创建条形码图片字节数组(用于网络传递)并扫描的调用入口
 ```java
 public static void executeForEANBytes() throws IOException {
     // 条形码内容
