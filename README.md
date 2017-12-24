@@ -1,9 +1,10 @@
-# Zxing
+# Nepxion Zxing
 [![Apache License 2](https://img.shields.io/badge/license-ASF2-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0.txt)
 
-基于Google Zxing的二维码/条形码生成组件
+Nepxion Zxing是一款基于Google Zxing的二维码/条形码生成组件
 
-## 参数说明
+## 简介
+参数说明
 ```java
 /**
  * 相关参数说明
@@ -22,124 +23,125 @@
  */
 ```
 
-## 创建二维码图片并扫描的示例
+## 示例
+创建二维码图片并扫描的示例
 ```java
-    public static void executeForQRFile() {
-        // 二维码内容
-        String text = "https://github.com/Nepxion/";
-        // 二维码图片导出路径
-        File file = new File("E:/二维码.jpg");
+public static void executeForQRFile() {
+    // 二维码内容
+    String text = "https://github.com/Nepxion/";
+    // 二维码图片导出路径
+    File file = new File("E:/二维码.jpg");
 
-        // 二维码参数的构造对象，很多参数赋予了默认值，可自行通过set方法更改
-        ZxingEntity entity = new ZxingEntity();
-        entity.setBarcodeFormat(BarcodeFormat.QR_CODE);
-        entity.setText(text);
-        entity.setOutputFile(file);
-        entity.setWidth(300);
-        entity.setHeight(300);
+    // 二维码参数的构造对象，很多参数赋予了默认值，可自行通过set方法更改
+    ZxingEntity entity = new ZxingEntity();
+    entity.setBarcodeFormat(BarcodeFormat.QR_CODE);
+    entity.setText(text);
+    entity.setOutputFile(file);
+    entity.setWidth(300);
+    entity.setHeight(300);
 
-        // 以文件格式读取并导出，该方式适合本地调用
-        ZxingEncoder encoder = new ZxingEncoder();
-        encoder.encodeForFile(entity);
+    // 以文件格式读取并导出，该方式适合本地调用
+    ZxingEncoder encoder = new ZxingEncoder();
+    encoder.encodeForFile(entity);
 
-        // 以文件格式扫描并解析
-        ZxingDecoder decoder = new ZxingDecoder();
-        Result result = decoder.decodeByFile(file, entity.getEncoding());
+    // 以文件格式扫描并解析
+    ZxingDecoder decoder = new ZxingDecoder();
+    Result result = decoder.decodeByFile(file, entity.getEncoding());
 
-        System.out.println("扫描结果 - [Text] : " + result.getText() + " [Timestamp] : " + result.getTimestamp() + " [BarcodeFormat] : " + result.getBarcodeFormat() + " [NumBits] : " + result.getNumBits());
-    }
+    System.out.println("扫描结果 - [Text] : " + result.getText() + " [Timestamp] : " + result.getTimestamp() + " [BarcodeFormat] : " + result.getBarcodeFormat() + " [NumBits] : " + result.getNumBits());
+}
 ```
 
-## 创建二维码图片字节数组(用于网络传递)并扫描的示例
+创建二维码图片字节数组(用于网络传递)并扫描的示例
 ```java
-    public static void executeForQRBytes() throws IOException {
-        // 二维码内容
-        String text = "https://github.com/Nepxion/";
-        // 二维码图片导出路径
-        File file = new File("E:/二维码.jpg");
+public static void executeForQRBytes() throws IOException {
+    // 二维码内容
+    String text = "https://github.com/Nepxion/";
+    // 二维码图片导出路径
+    File file = new File("E:/二维码.jpg");
 
-        // 二维码参数的构造对象，很多参数赋予了默认值，可自行通过set方法更改
-        ZxingEntity entity = new ZxingEntity();
-        entity.setBarcodeFormat(BarcodeFormat.QR_CODE);
-        entity.setText(text);
-        entity.setOutputFile(file);
-        entity.setWidth(300);
-        entity.setHeight(300);
+    // 二维码参数的构造对象，很多参数赋予了默认值，可自行通过set方法更改
+    ZxingEntity entity = new ZxingEntity();
+    entity.setBarcodeFormat(BarcodeFormat.QR_CODE);
+    entity.setText(text);
+    entity.setOutputFile(file);
+    entity.setWidth(300);
+    entity.setHeight(300);
 
-        // 以字节数组格式读取并导出，该方式适合服务端传输给客户端调用
-        ZxingEncoder encoder = new ZxingEncoder();
-        byte[] bytes = encoder.encodeForBytes(entity);
+    // 以字节数组格式读取并导出，该方式适合服务端传输给客户端调用
+    ZxingEncoder encoder = new ZxingEncoder();
+    byte[] bytes = encoder.encodeForBytes(entity);
 
-        ZxingUtils.createFile(bytes, file);
+    ZxingUtils.createFile(bytes, file);
 
-        // 以字节数组格式扫描并解析
-        ZxingDecoder decoder = new ZxingDecoder();
-        Result result = decoder.decodeByBytes(bytes, entity.getEncoding());
+    // 以字节数组格式扫描并解析
+    ZxingDecoder decoder = new ZxingDecoder();
+    Result result = decoder.decodeByBytes(bytes, entity.getEncoding());
 
-        System.out.println("扫描结果 - [Text] : " + result.getText() + " [Timestamp] : " + result.getTimestamp() + " [BarcodeFormat] : " + result.getBarcodeFormat() + " [NumBits] : " + result.getNumBits());
-    }
+    System.out.println("扫描结果 - [Text] : " + result.getText() + " [Timestamp] : " + result.getTimestamp() + " [BarcodeFormat] : " + result.getBarcodeFormat() + " [NumBits] : " + result.getNumBits());
+}
 ```
 
-## 创建条形码图片并扫描的示例
+创建条形码图片并扫描的示例
 ```java
-    public static void executeForEANFile() {
-        // 条形码内容
-        String text = "6943620593115";
-        // 条形码图片导出路径
-        File file = new File("E:/条形码.jpg");
+public static void executeForEANFile() {
+    // 条形码内容
+    String text = "6943620593115";
+    // 条形码图片导出路径
+    File file = new File("E:/条形码.jpg");
 
-        // 条形码参数的构造对象，很多参数赋予了默认值，可自行通过set方法更改
-        ZxingEntity entity = new ZxingEntity();
-        entity.setBarcodeFormat(BarcodeFormat.EAN_13);
-        entity.setText(text);
-        entity.setOutputFile(file);
-        entity.setWidth(560);
-        entity.setHeight(200);
+    // 条形码参数的构造对象，很多参数赋予了默认值，可自行通过set方法更改
+    ZxingEntity entity = new ZxingEntity();
+    entity.setBarcodeFormat(BarcodeFormat.EAN_13);
+    entity.setText(text);
+    entity.setOutputFile(file);
+    entity.setWidth(560);
+    entity.setHeight(200);
 
-        // 以文件格式读取并导出，该方式适合本地调用
-        ZxingEncoder encoder = new ZxingEncoder();
-        encoder.encodeForFile(entity);
+    // 以文件格式读取并导出，该方式适合本地调用
+    ZxingEncoder encoder = new ZxingEncoder();
+    encoder.encodeForFile(entity);
 
-        // 以文件格式扫描并解析
-        ZxingDecoder decoder = new ZxingDecoder();
-        Result result = decoder.decodeByFile(file, entity.getEncoding());
+    // 以文件格式扫描并解析
+    ZxingDecoder decoder = new ZxingDecoder();
+    Result result = decoder.decodeByFile(file, entity.getEncoding());
 
-        System.out.println("扫描结果 - [Text] : " + result.getText() + " [Timestamp] : " + result.getTimestamp() + " [BarcodeFormat] : " + result.getBarcodeFormat() + " [NumBits] : " + result.getNumBits());
-    }
+    System.out.println("扫描结果 - [Text] : " + result.getText() + " [Timestamp] : " + result.getTimestamp() + " [BarcodeFormat] : " + result.getBarcodeFormat() + " [NumBits] : " + result.getNumBits());
+}
 ```
 
-## 创建条形码图片字节数组(用于网络传递)并扫描的示例
+创建条形码图片字节数组(用于网络传递)并扫描的示例
 ```java
-    public static void executeForEANBytes() throws IOException {
-        // 条形码内容
-        String text = "6943620593115";
-        // 条形码图片导出路径
-        File file = new File("E:/条形码.jpg");
+public static void executeForEANBytes() throws IOException {
+    // 条形码内容
+    String text = "6943620593115";
+    // 条形码图片导出路径
+    File file = new File("E:/条形码.jpg");
 
-        // 条形码参数的构造对象，很多参数赋予了默认值，可自行通过set方法更改
-        ZxingEntity entity = new ZxingEntity();
-        entity.setBarcodeFormat(BarcodeFormat.EAN_13);
-        entity.setText(text);
-        entity.setOutputFile(file);
-        entity.setWidth(560);
-        entity.setHeight(200);
+    // 条形码参数的构造对象，很多参数赋予了默认值，可自行通过set方法更改
+    ZxingEntity entity = new ZxingEntity();
+    entity.setBarcodeFormat(BarcodeFormat.EAN_13);
+    entity.setText(text);
+    entity.setOutputFile(file);
+    entity.setWidth(560);
+    entity.setHeight(200);
 
-        // 以字节数组格式读取并导出，该方式适合服务端传输给客户端调用
-        ZxingEncoder encoder = new ZxingEncoder();
-        byte[] bytes = encoder.encodeForBytes(entity);
+    // 以字节数组格式读取并导出，该方式适合服务端传输给客户端调用
+    ZxingEncoder encoder = new ZxingEncoder();
+    byte[] bytes = encoder.encodeForBytes(entity);
 
-        ZxingUtils.createFile(bytes, file);
+    ZxingUtils.createFile(bytes, file);
 
-        // 以字节数组格式扫描并解析
-        ZxingDecoder decoder = new ZxingDecoder();
-        Result result = decoder.decodeByBytes(bytes, entity.getEncoding());
+    // 以字节数组格式扫描并解析
+    ZxingDecoder decoder = new ZxingDecoder();
+    Result result = decoder.decodeByBytes(bytes, entity.getEncoding());
 
-        System.out.println("扫描结果 - [Text] : " + result.getText() + " [Timestamp] : " + result.getTimestamp() + " [BarcodeFormat] : " + result.getBarcodeFormat() + " [NumBits] : " + result.getNumBits());
-    }
+    System.out.println("扫描结果 - [Text] : " + result.getText() + " [Timestamp] : " + result.getTimestamp() + " [BarcodeFormat] : " + result.getBarcodeFormat() + " [NumBits] : " + result.getNumBits());
+}
 ```
 
-## 二维码示例图片
+二维码示例图片
 ![Alt text](https://github.com/Nepxion/Zxing/blob/master/二维码示例.jpg)
 
-## 条形码示例图片
+条形码示例图片
 ![Alt text](https://github.com/Nepxion/Zxing/blob/master/条形码示例.jpg)
