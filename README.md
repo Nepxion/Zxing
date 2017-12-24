@@ -141,7 +141,9 @@ public static void executeForEANBytes() throws IOException {
 ```
 
 二维码示例图片
+
 ![Alt text](https://github.com/Nepxion/Zxing/blob/master/二维码示例.jpg)
 
 条形码示例图片
+
 ![Alt text](https://github.com/Nepxion/Zxing/blob/master/条形码示例.jpg)
