@@ -8,7 +8,7 @@
     <modelVersion>4.0.0</modelVersion>
     <version>1.0.0</version>
     <description>Nepxion Zxing is a QR code generator based on google zxing framework</description>
-    <url>https://github.com/Nepxion/</url>
+    <url>http://www.nepxion.com</url>
 
     <properties>
         <commons.lang3.version>3.6</commons.lang3.version>
