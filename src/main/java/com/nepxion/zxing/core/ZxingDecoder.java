@@ -20,6 +20,7 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,20 +38,20 @@ import com.nepxion.zxing.exception.ZxingException;
 public class ZxingDecoder {
     private static final Logger LOG = LoggerFactory.getLogger(ZxingDecoder.class);
 
-    public Result decodeByFile(File inputFile, String encoding) {
+    public Result decodeByFile(File file, String encoding) {
         BufferedImage image = null;
         try {
-            image = ImageIO.read(inputFile);
+            image = ImageIO.read(file);
         } catch (IOException e) {
-            LOG.error("Decode file=[{}] error", inputFile.getPath(), e);
-            throw new ZxingException("Decode file=[" + inputFile.getPath() + "] error", e);
+            LOG.error("Decode file=[{}] error", file.getPath(), e);
+            throw new ZxingException("Decode file=[" + file.getPath() + "] error", e);
         }
 
         try {
             return decode(image, encoding);
         } catch (NotFoundException e) {
-            LOG.error("Decode file=[{}] error", inputFile.getPath(), e);
-            throw new ZxingException("Decode file=[" + inputFile.getPath() + "] error", e);
+            LOG.error("Decode file=[{}] error", file.getPath(), e);
+            throw new ZxingException("Decode file=[" + file.getPath() + "] error", e);
         }
     }
 
@@ -89,9 +90,16 @@ public class ZxingDecoder {
     }
 
     public Result decodeByBytes(byte[] bytes, String encoding) {
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(bytes);
+        ByteArrayInputStream inputStream = null;
+        try {
+            inputStream = new ByteArrayInputStream(bytes);
 
-        return decodeByInputStream(inputStream, encoding);
+            return decodeByInputStream(inputStream, encoding);
+        } finally {
+            if (inputStream != null) {
+                IOUtils.closeQuietly(inputStream);
+            }
+        }
     }
 
     private Result decode(BufferedImage image, String encoding) throws NotFoundException {

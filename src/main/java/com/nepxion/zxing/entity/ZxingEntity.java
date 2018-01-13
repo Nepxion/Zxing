@@ -10,6 +10,7 @@ package com.nepxion.zxing.entity;
  */
 
 import java.io.File;
+import java.io.InputStream;
 import java.io.Serializable;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -36,7 +37,7 @@ public class ZxingEntity implements Serializable {
     private int backgroundColor = ZxingConstant.DEFAULT_BACKGROUND_COLOR;
     private boolean deleteWhiteBorder = ZxingConstant.DEFAULT_DELETE_WHITE_BORDER;
     private File logoFile = new File(ZxingConstant.DEFAULT_LOGO_PATH);
-    private byte[] logoBytes;
+    private InputStream logoInputStream;
     private File outputFile;
 
     public BarcodeFormat getBarcodeFormat() {
@@ -135,16 +136,16 @@ public class ZxingEntity implements Serializable {
         this.logoFile = logoFile;
     }
 
-    public byte[] getLogoBytes() {
-        return logoBytes;
+    public InputStream getLogoInputStream() {
+        return logoInputStream;
     }
 
-    public void setLogoBytes(byte[] logoBytes) {
-        this.logoBytes = logoBytes;
+    public void setLogoInputStream(InputStream logoInputStream) {
+        this.logoInputStream = logoInputStream;
     }
 
     public boolean hasLogo() {
-        return logoFile != null || logoBytes != null;
+        return logoFile != null || logoInputStream != null;
     }
 
     public File getOutputFile() {

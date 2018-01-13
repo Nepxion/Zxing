@@ -272,11 +272,11 @@ public class ZxingEncoder {
 
         // 载入Logo
         File logoFile = zxingEntity.getLogoFile();
-        byte[] logoBytes = zxingEntity.getLogoBytes();
+        InputStream logoInputStream = zxingEntity.getLogoInputStream();
 
         Image logoImage = null;
-        if (logoBytes != null) {
-            logoImage = ImageIO.read(new ByteArrayInputStream(logoBytes));
+        if (logoInputStream != null) {
+            logoImage = ImageIO.read(logoInputStream);
         } else {
             logoImage = ImageIO.read(logoFile);
         }
