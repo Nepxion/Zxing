@@ -1,5 +1,7 @@
 # Nepxion Zxing
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?label=license)](https://github.com/Nepxion/Zxing/blob/master/LICENSE)
+[![Maven Central](https://img.shields.io/maven-central/v/com.nepxion/zxing.svg?label=maven%20central)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.nepxion%22%20AND%20zxing)
+[![Javadocs](http://www.javadoc.io/badge/com.nepxion/zxing.svg)](http://www.javadoc.io/doc/com.nepxion/zxing)
 [![Build Status](https://travis-ci.org/Nepxion/Zxing.svg?branch=master)](https://travis-ci.org/Nepxion/Zxing)
 
 Nepxion Zxing是一款基于Google Zxing的二维码/条形码生成组件
