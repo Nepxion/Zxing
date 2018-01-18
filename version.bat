@@ -15,6 +15,6 @@
 @title Nepxion Zxing
 @color 0a
 
-call mvn clean deploy -DskipTests -e -P release
+call mvn versions:set -DnewVersion=1.0.1
 
 pause
