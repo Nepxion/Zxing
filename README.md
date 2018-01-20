@@ -26,6 +26,16 @@ Nepxion Zxing是一款基于Google Zxing的二维码/条形码生成组件
  */
 ```
 
+### 依赖
+
+```xml
+<dependency>
+  <groupId>com.nepxion</groupId>
+  <artifactId>zxing</artifactId>
+  <version>${zxing.version}</version>
+</dependency>
+```
+
 ## 示例
 创建二维码图片并扫描的调用入口
 ```java
