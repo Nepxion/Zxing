@@ -6,7 +6,7 @@
     <name>Nepxion Zxing</name>
     <packaging>jar</packaging>
     <modelVersion>4.0.0</modelVersion>
-    <version>1.0.0</version>
+    <version>${revision}</version>
     <description>Nepxion Zxing is a QR code generator based on google zxing framework</description>
     <url>http://www.nepxion.com</url>
 
@@ -17,6 +17,7 @@
         <zxing.version>3.3.0</zxing.version>
         <disruptor.version>3.3.7</disruptor.version>
         <log4j.version>2.9.1</log4j.version>
+        <revision>1.0.0</revision>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
