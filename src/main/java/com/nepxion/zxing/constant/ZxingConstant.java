@@ -31,7 +31,7 @@ public class ZxingConstant {
         System.out.println("╚════╩╝╚╩╩╝╚╩═╗║");
         System.out.println("            ╔═╝║");
         System.out.println("            ╚══╝");
-        System.out.println("Nepxion Zxing  v1.0.0");
+        System.out.println("Nepxion Zxing  v1.0.1");
         System.out.println("");
     }
 }
