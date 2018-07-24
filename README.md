@@ -6,6 +6,11 @@
 
 Nepxion Zxing是一款基于Google Zxing的二维码/条形码生成组件
 
+## 请联系我
+- 请加微信群或者微信
+
+![Alt text](https://github.com/Nepxion/Docs/blob/master/zxing-doc/微信群-1.jpg) ![Alt text](https://github.com/Nepxion/Docs/blob/master/zxing-doc/微信-1.jpg)
+
 ## 简介
 参数说明
 ```java
