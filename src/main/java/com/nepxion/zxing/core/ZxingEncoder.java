@@ -288,6 +288,7 @@ public class ZxingEncoder {
         int y = (image.getHeight() - logoHeight) / 2;
 
         g2d.drawImage(logoImage, x, y, logoWidth, logoHeight, null);
+        // g2d.drawImage(logoImage.getScaledInstance(logoWidth, logoHeight, Image.SCALE_SMOOTH), x, y, null);
         g2d.setColor(Color.black);
         g2d.setBackground(Color.WHITE);
         g2d.dispose();

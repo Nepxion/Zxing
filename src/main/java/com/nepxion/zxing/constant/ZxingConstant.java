@@ -19,7 +19,7 @@ public class ZxingConstant {
     public static final int DEFAULT_FOREGROUND_COLOR = 0xFF000000;
     public static final int DEFAULT_BACKGROUND_COLOR = 0xFFFFFFFF;
     public static final boolean DEFAULT_DELETE_WHITE_BORDER = false;
-    public static final String DEFAULT_LOGO_PATH = "src/main/resources/logo.jpg";
+    public static final String DEFAULT_LOGO_PATH = "src/main/resources/logo_1.jpg";
 
     static {
         System.out.println("");
