@@ -44,8 +44,8 @@ public class ZxingTest {
         entity.setBarcodeFormat(BarcodeFormat.QR_CODE);
         entity.setText(text);
         entity.setOutputFile(file);
-        entity.setWidth(300);
-        entity.setHeight(300);
+        entity.setWidth(430);
+        entity.setHeight(430);
 
         // 以文件格式读取并导出，该方式适合本地调用
         ZxingEncoder encoder = new ZxingEncoder();
@@ -69,8 +69,8 @@ public class ZxingTest {
         entity.setBarcodeFormat(BarcodeFormat.QR_CODE);
         entity.setText(text);
         entity.setOutputFile(file);
-        entity.setWidth(300);
-        entity.setHeight(300);
+        entity.setWidth(430);
+        entity.setHeight(430);
 
         // 以字节数组格式读取并导出，该方式适合服务端传输给客户端调用
         ZxingEncoder encoder = new ZxingEncoder();
