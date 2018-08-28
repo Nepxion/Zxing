@@ -1,5 +1,5 @@
 # Nepxion Zxing
-![CoL](https://tokei.rs/b1/github/Nepxion/Zxing)
+[![Total lines](https://tokei.rs/b1/github/Nepxion/Zxing?category=lines)](https://github.com/Nepxion/Zxing)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?label=license)](https://github.com/Nepxion/Zxing/blob/master/LICENSE)
 [![Maven Central](https://img.shields.io/maven-central/v/com.nepxion/zxing.svg?label=maven%20central)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.nepxion%22%20AND%20zxing)
 [![Javadocs](http://www.javadoc.io/badge/com.nepxion/zxing.svg)](http://www.javadoc.io/doc/com.nepxion/zxing)
