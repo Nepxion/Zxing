@@ -6,7 +6,7 @@
 [![Build Status](https://travis-ci.org/Nepxion/Zxing.svg?branch=master)](https://travis-ci.org/Nepxion/Zxing)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/72d939847f8e49319e009776d9c77b9a)](https://www.codacy.com/project/HaojunRen/Zxing/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Nepxion/Zxing&amp;utm_campaign=Badge_Grade_Dashboard)
 
-Nepxion Zxing是一款基于Google Zxing的二维码/条形码生成组件
+Nepxion Zxing是一款基于Google Zxing的二维码/条形码生成组件。支持二维码/条形码创建和扫描，支持创建成本地图片和字节数组两种格式
 
 ## 请联系我
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/zxing-doc/微信-1.jpg)
