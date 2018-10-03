@@ -9,7 +9,10 @@
 Nepxion Zxing是一款基于Google Zxing的二维码/条形码生成组件。支持二维码/条形码创建和扫描，支持创建成本地图片和字节数组两种格式
 
 ## 请联系我
+微信和公众号
+
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/zxing-doc/微信-1.jpg)
+![Alt text](https://github.com/Nepxion/Docs/blob/master/zxing-doc/公众号-1.jpg)
 
 ## 简介
 ```java
