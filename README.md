@@ -55,6 +55,7 @@ public static void executeForQRFile() {
     // 二维码参数的构造对象，很多参数赋予了默认值，可自行通过set方法更改
     ZxingEntity entity = new ZxingEntity();
     entity.setBarcodeFormat(BarcodeFormat.QR_CODE);
+    entity.setLogoFile(new File("src/test/resources/logo.png"));
     entity.setText(text);
     entity.setOutputFile(file);
     entity.setWidth(300);
@@ -83,6 +84,7 @@ public static void executeForQRBytes() throws IOException {
     // 二维码参数的构造对象，很多参数赋予了默认值，可自行通过set方法更改
     ZxingEntity entity = new ZxingEntity();
     entity.setBarcodeFormat(BarcodeFormat.QR_CODE);
+    entity.setLogoFile(new File("src/test/resources/logo.png"));
     entity.setText(text);
     entity.setOutputFile(file);
     entity.setWidth(300);
