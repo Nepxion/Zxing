@@ -36,7 +36,7 @@ public class ZxingEntity implements Serializable {
     private int foregroundColor = ZxingConstant.DEFAULT_FOREGROUND_COLOR;
     private int backgroundColor = ZxingConstant.DEFAULT_BACKGROUND_COLOR;
     private boolean deleteWhiteBorder = ZxingConstant.DEFAULT_DELETE_WHITE_BORDER;
-    private File logoFile = new File(ZxingConstant.DEFAULT_LOGO_PATH);
+    private File logoFile;
     private InputStream logoInputStream;
     private File outputFile;
 
