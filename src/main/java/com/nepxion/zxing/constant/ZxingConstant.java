@@ -21,16 +21,19 @@ public class ZxingConstant {
     public static final boolean DEFAULT_DELETE_WHITE_BORDER = false;
 
     static {
-        System.out.println("");
-        System.out.println("╔════╗");
-        System.out.println("╚══╗═║");
-        System.out.println("  ╔╝╔╬╗╔╦╦═╗╔══╗");
-        System.out.println(" ╔╝╔╝╚╬╬╬╣╔╗╣╔╗║");
-        System.out.println("╔╝═╚═╦╬╬╣║║║║╚╝║");
-        System.out.println("╚════╩╝╚╩╩╝╚╩═╗║");
-        System.out.println("            ╔═╝║");
-        System.out.println("            ╚══╝");
-        System.out.println("Nepxion Zxing  v1.0.9");
-        System.out.println("");
+        String logoShown = System.getProperty("nepxion.logo.shown", "true");
+        if (Boolean.valueOf(logoShown)) {
+            System.out.println("");
+            System.out.println("╔════╗");
+            System.out.println("╚══╗═║");
+            System.out.println("  ╔╝╔╬╗╔╦╦═╗╔══╗");
+            System.out.println(" ╔╝╔╝╚╬╬╬╣╔╗╣╔╗║");
+            System.out.println("╔╝═╚═╦╬╬╣║║║║╚╝║");
+            System.out.println("╚════╩╝╚╩╩╝╚╩═╗║");
+            System.out.println("            ╔═╝║");
+            System.out.println("            ╚══╝");
+            System.out.println("Nepxion Zxing  v1.0.9");
+            System.out.println("");
+        }
     }
 }
