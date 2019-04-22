@@ -10,8 +10,15 @@ package com.nepxion.zxing.constant;
  */
 
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import com.nepxion.banner.BannerConstant;
+import com.nepxion.banner.Description;
+import com.nepxion.banner.LogoBanner;
+import com.nepxion.banner.NepxionBanner;
+import com.taobao.text.Color;
 
 public class ZxingConstant {
+    public static final String MASK_VERSION = "1.0.0";
+
     public static final String DEFAULT_FORMAT = "jpg";
     public static final String DEFAULT_ENCODING = "UTF-8";
     public static final ErrorCorrectionLevel DEFAULT_CORRECTION_LEVEL = ErrorCorrectionLevel.H;
@@ -21,8 +28,8 @@ public class ZxingConstant {
     public static final boolean DEFAULT_DELETE_WHITE_BORDER = false;
 
     static {
-        String logoShown = System.getProperty("nepxion.logo.shown", "true");
-        if (Boolean.valueOf(logoShown)) {
+        /*String bannerShown = System.getProperty(BannerConstant.BANNER_SHOWN, "true");
+        if (Boolean.valueOf(bannerShown)) {
             System.out.println("");
             System.out.println("╔════╗");
             System.out.println("╚══╗═║");
@@ -32,8 +39,12 @@ public class ZxingConstant {
             System.out.println("╚════╩╝╚╩╩╝╚╩═╗║");
             System.out.println("            ╔═╝║");
             System.out.println("            ╚══╝");
-            System.out.println("Nepxion Zxing  v1.0.10");
+            System.out.println("Nepxion Zxing  v" + MASK_VERSION);
             System.out.println("");
-        }
+        }*/
+
+        LogoBanner logoBanner = new LogoBanner(ZxingConstant.class, "/com/nepxion/zxing/resource/logo.txt", "Welcome to Nepxion", 5, 5, new Color[] { Color.red, Color.green, Color.cyan, Color.blue, Color.yellow }, true);
+
+        NepxionBanner.show(logoBanner, new Description(BannerConstant.VERSION + ":", MASK_VERSION, 0, 1), new Description(BannerConstant.GITHUB + ":", BannerConstant.NEPXION_GITHUB + "/zxing", 0, 1));
     }
 }
