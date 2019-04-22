@@ -17,7 +17,7 @@ import com.nepxion.banner.NepxionBanner;
 import com.taobao.text.Color;
 
 public class ZxingConstant {
-    public static final String ZXING_VERSION = "1.0.11";
+    public static final String ZXING_VERSION = "1.0.12";
 
     public static final String DEFAULT_FORMAT = "jpg";
     public static final String DEFAULT_ENCODING = "UTF-8";
@@ -45,6 +45,6 @@ public class ZxingConstant {
 
         LogoBanner logoBanner = new LogoBanner(ZxingConstant.class, "/com/nepxion/zxing/resource/logo.txt", "Welcome to Nepxion", 5, 5, new Color[] { Color.red, Color.green, Color.cyan, Color.blue, Color.yellow }, true);
 
-        NepxionBanner.show(logoBanner, new Description(BannerConstant.VERSION + ":", ZXING_VERSION, 0, 1), new Description(BannerConstant.GITHUB + ":", BannerConstant.NEPXION_GITHUB + "/zxing", 0, 1));
+        NepxionBanner.show(logoBanner, new Description(BannerConstant.VERSION + ":", ZXING_VERSION, 0, 1), new Description(BannerConstant.GITHUB + ":", BannerConstant.NEPXION_GITHUB + "/Zxing", 0, 1));
     }
 }
