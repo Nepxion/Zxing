@@ -171,3 +171,7 @@ public static void executeForEANBytes() throws IOException {
 条形码示例图片
 
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/zxing-doc/条形码示例.jpg)
+
+## Star走势图
+
+[![Stargazers over time](https://starchart.cc/Nepxion/Zxing.svg)](https://starchart.cc/Nepxion/Zxing)
