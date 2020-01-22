@@ -168,4 +168,4 @@ public static void executeForEANBytes() throws IOException {
 
 ## Star走势图
 
-[![Stargazers over time](https://starchart.cc/Nepxion/Zxing.svg)](https://starchart.cc/Nepxion/Zxing)
+[![Stargazers over time](https://starchart.cc/Nepxion/Zxing.svg)](https://starchart.cc/Nepxion/Zxing) 
