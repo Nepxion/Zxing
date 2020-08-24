@@ -6,7 +6,7 @@ Nepxion Zxing是一款基于Google Zxing的二维码/条形码生成组件。支
 ## 请联系我
 微信和公众号
 
-![Alt text](http://nepxion.gitee.io/docs/zxing-doc/微信-1.jpg)![Alt text](http://nepxion.gitee.io/docs/zxing-doc/公众号-1.jpg)
+![](http://nepxion.gitee.io/docs/zxing-doc/微信-1.jpg)![](http://nepxion.gitee.io/docs/zxing-doc/公众号-1.jpg)![](http://nepxion.gitee.io/docs/zxing-doc/文档-1.jpg)
 
 ## 简介
 ```java
@@ -160,11 +160,11 @@ public static void executeForEANBytes() throws IOException {
 
 二维码示例图片
 
-![Alt text](http://nepxion.gitee.io/docs/zxing-doc/二维码示例.jpg)
+![](http://nepxion.gitee.io/docs/zxing-doc/二维码示例.jpg)
 
 条形码示例图片
 
-![Alt text](http://nepxion.gitee.io/docs/zxing-doc/条形码示例.jpg)
+![](http://nepxion.gitee.io/docs/zxing-doc/条形码示例.jpg)
 
 ## Star走势图
 
