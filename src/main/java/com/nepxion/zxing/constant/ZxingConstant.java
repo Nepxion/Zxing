@@ -17,7 +17,7 @@ import com.nepxion.banner.NepxionBanner;
 import com.taobao.text.Color;
 
 public class ZxingConstant {
-    public static final String ZXING_VERSION = "1.1.0";
+    public static final String ZXING_VERSION = "1.1.1";
 
     public static final String DEFAULT_FORMAT = "jpg";
     public static final String DEFAULT_ENCODING = "UTF-8";
