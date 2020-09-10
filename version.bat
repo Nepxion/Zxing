@@ -15,6 +15,6 @@
 @title Nepxion Zxing
 @color 0a
 
-call mvn versions:set -DgenerateBackupPoms=false -DnewVersion=1.0.12
+call mvn versions:set -DgenerateBackupPoms=false -DnewVersion=1.1.0
 
 pause
