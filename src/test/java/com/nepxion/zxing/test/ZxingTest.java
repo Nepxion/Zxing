@@ -12,9 +12,6 @@ package com.nepxion.zxing.test;
 import java.io.File;
 import java.io.IOException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 import com.nepxion.zxing.core.ZxingDecoder;
@@ -23,8 +20,6 @@ import com.nepxion.zxing.entity.ZxingEntity;
 import com.nepxion.zxing.util.ZxingUtil;
 
 public class ZxingTest {
-    private static final Logger LOG = LoggerFactory.getLogger(ZxingTest.class);
-
     public static void main(String[] args) throws Exception {
         executeForQRFile();
         // executeForQRBytes();
@@ -56,7 +51,7 @@ public class ZxingTest {
         ZxingDecoder decoder = new ZxingDecoder();
         Result result = decoder.decodeByFile(file, entity.getEncoding());
 
-        LOG.info("扫描结果 - [Text] : " + result.getText() + " [Timestamp] : " + result.getTimestamp() + " [BarcodeFormat] : " + result.getBarcodeFormat() + " [NumBits] : " + result.getNumBits());
+        System.out.println("扫描结果 - [Text] : " + result.getText() + " [Timestamp] : " + result.getTimestamp() + " [BarcodeFormat] : " + result.getBarcodeFormat() + " [NumBits] : " + result.getNumBits());
     }
 
     public static void executeForQRBytes() throws IOException {
@@ -84,7 +79,7 @@ public class ZxingTest {
         ZxingDecoder decoder = new ZxingDecoder();
         Result result = decoder.decodeByBytes(bytes, entity.getEncoding());
 
-        LOG.info("扫描结果 - [Text] : " + result.getText() + " [Timestamp] : " + result.getTimestamp() + " [BarcodeFormat] : " + result.getBarcodeFormat() + " [NumBits] : " + result.getNumBits());
+        System.out.println("扫描结果 - [Text] : " + result.getText() + " [Timestamp] : " + result.getTimestamp() + " [BarcodeFormat] : " + result.getBarcodeFormat() + " [NumBits] : " + result.getNumBits());
     }
 
     public static void executeForEANFile() {
@@ -109,7 +104,7 @@ public class ZxingTest {
         ZxingDecoder decoder = new ZxingDecoder();
         Result result = decoder.decodeByFile(file, entity.getEncoding());
 
-        LOG.info("扫描结果 - [Text] : " + result.getText() + " [Timestamp] : " + result.getTimestamp() + " [BarcodeFormat] : " + result.getBarcodeFormat() + " [NumBits] : " + result.getNumBits());
+        System.out.println("扫描结果 - [Text] : " + result.getText() + " [Timestamp] : " + result.getTimestamp() + " [BarcodeFormat] : " + result.getBarcodeFormat() + " [NumBits] : " + result.getNumBits());
     }
 
     public static void executeForEANBytes() throws IOException {
@@ -136,6 +131,6 @@ public class ZxingTest {
         ZxingDecoder decoder = new ZxingDecoder();
         Result result = decoder.decodeByBytes(bytes, entity.getEncoding());
 
-        LOG.info("扫描结果 - [Text] : " + result.getText() + " [Timestamp] : " + result.getTimestamp() + " [BarcodeFormat] : " + result.getBarcodeFormat() + " [NumBits] : " + result.getNumBits());
+        System.out.println("扫描结果 - [Text] : " + result.getText() + " [Timestamp] : " + result.getTimestamp() + " [BarcodeFormat] : " + result.getBarcodeFormat() + " [NumBits] : " + result.getNumBits());
     }
 }
