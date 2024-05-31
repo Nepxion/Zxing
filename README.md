@@ -1,7 +1,7 @@
 # Nepxion Zxing
 ![Total visits](https://visitor-badge.laobi.icu/badge?page_id=Nepxion&title=total%20visits)  [![Total lines](https://tokei.rs/b1/github/Nepxion/Zxing?category=lines)](https://tokei.rs/b1/github/Nepxion/Zxing?category=lines)  [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?label=license)](https://github.com/Nepxion/Zxing/blob/master/LICENSE)  [![Maven Central](https://img.shields.io/maven-central/v/com.nepxion/zxing.svg?label=maven)](https://search.maven.org/artifact/com.nepxion/zxing)  [![Javadocs](http://www.javadoc.io/badge/com.nepxion/zxing.svg)](http://www.javadoc.io/doc/com.nepxion/zxing)  [![Build Status](https://github.com/Nepxion/Zxing/workflows/build/badge.svg)](https://github.com/Nepxion/Zxing/actions)  [![Codacy Badge](https://app.codacy.com/project/badge/Grade/2f88e9a5f21d49cd97c9c5552e5a4455)](https://www.codacy.com/gh/Nepxion/Zxing/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Nepxion/Zxing&amp;utm_campaign=Badge_Grade)  [![Stars](https://img.shields.io/github/stars/Nepxion/Zxing.svg?label=Stars&style=flat&logo=GitHub)](https://github.com/Nepxion/Zxing/stargazers)  [![Stars](https://gitee.com/Nepxion/Zxing/badge/star.svg)](https://gitee.com/Nepxion/Zxing/stargazers)
 
-<a href="https://github.com/Nepxion" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery//docs/icon-doc/github.png"></a>&nbsp;  <a href="https://gitee.com/Nepxion" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery//docs/icon-doc/gitee.png"></a>&nbsp;  <a href="https://search.maven.org/search?q=g:com.nepxion" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery//docs/icon-doc/maven.png"></a>&nbsp;  <a href="https://nepxion.github.io/Discovery//docs/contact-doc/wechat.jpg" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery//docs/icon-doc/wechat.png"></a>&nbsp;  <a href="https://nepxion.github.io/Discovery//docs/contact-doc/dingding.jpg" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery//docs/icon-doc/dingding.png"></a>&nbsp;  <a href="https://nepxion.github.io/Discovery//docs/contact-doc/gongzhonghao.jpg" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery//docs/icon-doc/gongzhonghao.png"></a>&nbsp;  <a href="mailto:1394997@qq.com" tppabs="#"><img width="25" height="25" src="https://nepxion.github.io/Discovery//docs/icon-doc/email.png"></a>
+<a href="https://github.com/Nepxion" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery/docs/icon-doc/github.png"></a>&nbsp;  <a href="https://gitee.com/Nepxion" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery/docs/icon-doc/gitee.png"></a>&nbsp;  <a href="https://search.maven.org/search?q=g:com.nepxion" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery/docs/icon-doc/maven.png"></a>&nbsp;  <a href="https://nepxion.github.io/Discovery/docs/contact-doc/wechat.jpg" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery/docs/icon-doc/wechat.png"></a>&nbsp;  <a href="https://nepxion.github.io/Discovery/docs/contact-doc/dingding.jpg" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery/docs/icon-doc/dingding.png"></a>&nbsp;  <a href="https://nepxion.github.io/Discovery/docs/contact-doc/gongzhonghao.jpg" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery/docs/icon-doc/gongzhonghao.png"></a>&nbsp;  <a href="mailto:1394997@qq.com" tppabs="#"><img width="25" height="25" src="https://nepxion.github.io/Discovery/docs/icon-doc/email.png"></a>
 
 Nepxion Zxing是一款基于Google Zxing的二维码/条形码生成组件。支持二维码/条形码创建和扫描，支持创建本地图片和字节数组两种格式
 
@@ -153,16 +153,16 @@ public static void executeForEANBytes() throws IOException {
 
 二维码示例图片
 
-![](https://nepxion.github.io/Discovery//docs/zxing-doc/QR.jpg)
+![](https://nepxion.github.io/Discovery/docs/zxing-doc/QR.jpg)
 
 条形码示例图片
 
-![](https://nepxion.github.io/Discovery//docs/zxing-doc/EAN.jpg)
+![](https://nepxion.github.io/Discovery/docs/zxing-doc/EAN.jpg)
 
 ## 请联系我
 微信、钉钉、公众号和文档
 
-![](https://nepxion.github.io/Discovery//docs/contact-doc/wechat-1.jpg)![](https://nepxion.github.io/Discovery//docs/contact-doc/dingding-1.jpg)![](https://nepxion.github.io/Discovery//docs/contact-doc/gongzhonghao-1.jpg)![](https://nepxion.github.io/Discovery//docs/contact-doc/document-1.jpg)
+![](https://nepxion.github.io/Discovery/docs/contact-doc/wechat-1.jpg)![](https://nepxion.github.io/Discovery/docs/contact-doc/dingding-1.jpg)![](https://nepxion.github.io/Discovery/docs/contact-doc/gongzhonghao-1.jpg)![](https://nepxion.github.io/Discovery/docs/contact-doc/document-1.jpg)
 
 ## Star走势图
 [![Stargazers over time](https://starchart.cc/Nepxion/Zxing.svg)](https://starchart.cc/Nepxion/Zxing)
